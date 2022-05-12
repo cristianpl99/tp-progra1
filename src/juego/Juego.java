@@ -14,7 +14,7 @@ public class Juego extends InterfaceJuego
 	Fondo fondo;
 	int tiempo = 3600;
 	int segundos = 0;
-	int Kills = 0;
+	int kills = 0;
 	
 	Juego()
 	{
@@ -48,18 +48,17 @@ public class Juego extends InterfaceJuego
 	public void tick(){
 		//dibuja el fondo
 		fondo.dibujarse(entorno);
-		
+		// setea el tiempo
 		tiempo -= 1;
-		segundos = tiempo / 60;
+		segundos = tiempo / 60;		          
 		
-		          
-		
-	//chequea al principio del ciclo si mikasa esta viva
-	if(Kills == 4){
+		//si mata a los cuatro kyojines, gana el juego
+	if(kills == 4){
 			entorno.cambiarFont("Arial", 50, Color.BLACK);
 			entorno.escribirTexto("GANASTE", 250, 100);
 			
 		}
+		//chequea al principio del ciclo si mikasa esta viva
 	if (mikasa == null || tiempo <= 0){
 		entorno.cambiarFont("Arial", 50, Color.BLACK);
 		entorno.escribirTexto("GAME OVER ", 250, 100);
@@ -92,6 +91,7 @@ public class Juego extends InterfaceJuego
 			proyectil.dibujar(entorno);
 			proyectil.mover();
 		}
+		//si sale del limite de la pantalla, lo pone en null
 		if((proyectil != null) &&(proyectil.chocasteCon(entorno)== true)) {
 				proyectil = null;
 			}
@@ -108,6 +108,7 @@ public class Juego extends InterfaceJuego
 				obstaculos[i].dibujarCasa(entorno);
 			}
 		}
+		//cada cinco segundos pone una pocima en el juego
 		if (tiempo % 360 == 0){
 			pocima = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1));
 		}
@@ -125,9 +126,9 @@ public class Juego extends InterfaceJuego
 			pocima = null;
 		}
 		}
-		
-		
-		mikasa.dibujarse(entorno);
+		if (mikasa != null){
+			mikasa.dibujarse(entorno);
+		}
 		//dibuja los kyojines
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
@@ -148,7 +149,7 @@ public class Juego extends InterfaceJuego
 			}
 		}
 		//si chocan con obstaculos, cambian de trayectoria. 
-		//hay que hacerlo como metodo de clase
+		//hay que hacerlo como metodo de clase???
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			for (int j = 0; j <= obstaculos.length-1; j++) {
 			if (kyojines[i]!=null) {	
@@ -160,7 +161,7 @@ public class Juego extends InterfaceJuego
 				if (kyojines[i]!=null) {
 				if ((kyojines[i].x >= proyectil.x - 30) && (kyojines[i].x <= proyectil.x + 30) && (kyojines[i].y >= proyectil.y - 30) && (kyojines[i].y <= proyectil.y + 30) ){ 
 					kyojines[i]=null;
-					Kills +=1;
+					kills +=1;
 					}
 			}
 			}
@@ -175,13 +176,11 @@ public class Juego extends InterfaceJuego
 				}
 			}
 		}
-		
-		
-		
+				
 		entorno.cambiarFont("Arial", 25, Color.white);
 		entorno.escribirTexto("TIME: " + segundos, 500, 100);
 		entorno.cambiarFont("Arial", 25, Color.red);
-		entorno.escribirTexto("KILLS: " + Kills, 500, 130);
+		entorno.escribirTexto("KILLS: " + kills, 500, 130);
 		
 	}	
 	}
