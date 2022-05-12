@@ -23,6 +23,7 @@ public class Obstaculo
 	
 		img1 = Herramientas.cargarImagen("arbol.png");
 		img2 = Herramientas.cargarImagen("casa.png");
+		img3 = Herramientas.cargarImagen("crater.png");
 	}
 	
 	public void dibujarArbol(Entorno entorno)
@@ -34,6 +35,11 @@ public class Obstaculo
 	{
 //		entorno.dibujarTriangulo(this.x, this.y, 50, 30, this.angulo, Color.yellow);
 			entorno.dibujarImagen(img2, this.x, this.y, this.angulo, 0.4);		
+	}
+	public void dibujarCrater(Entorno entorno)
+	{
+//		entorno.dibujarTriangulo(this.x, this.y, 50, 30, this.angulo, Color.yellow);
+			entorno.dibujarImagen(img3, this.x, this.y, this.angulo, 0.6);		
 	}
 
 }

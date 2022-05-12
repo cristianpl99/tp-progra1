@@ -14,7 +14,6 @@ public class Pocima
 	double angulo;
 	Image img6;
 	
-	
 	public Pocima(int x, int y) 
 	{
 		this.x = x;

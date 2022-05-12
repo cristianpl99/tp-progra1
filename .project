@@ -26,6 +26,11 @@
 			<location>C:/Users/crist/Desktop/UNGS/P1/ProyectoBaseTP/src/casa.png</location>
 		</link>
 		<link>
+			<name>src/crater.png</name>
+			<type>1</type>
+			<location>C:/Users/crist/Desktop/UNGS/P1/ProyectoBaseTP/src/crater.png</location>
+		</link>
+		<link>
 			<name>src/fondo.jpg</name>
 			<type>1</type>
 			<location>C:/Users/crist/Desktop/UNGS/P1/ProyectoBaseTP/src/fondo.jpg</location>

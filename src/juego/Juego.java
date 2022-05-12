@@ -9,6 +9,7 @@ public class Juego extends InterfaceJuego
 	Mikasa mikasa;
 	Kyojin [] kyojines;
 	Obstaculo [] obstaculos;
+	Obstaculo [] crater;
 	Proyectil proyectil;
 	Pocima pocima;
 	Fondo fondo;
@@ -32,7 +33,8 @@ public class Juego extends InterfaceJuego
 			kyojines[1] = new Kyojin(50, 550, 1, Math.PI/4, 30);
 			kyojines[2] = new Kyojin(550, 50, 1, Math.PI/4, 30);
 			kyojines[3] = new Kyojin(550, 550, 1, Math.PI/4, 30);	
-		
+		// array de obstaculos con la imagen del crater
+		crater = new Obstaculo [4];
 		/* 
 		 * Es fundamental que recién al final del constructor de la clase Juego se 
 		 * inicie el objeto entorno de la siguiente manera.
@@ -95,9 +97,7 @@ public class Juego extends InterfaceJuego
 		if((proyectil != null) &&(proyectil.chocasteCon(entorno)== true)) {
 				proyectil = null;
 			}
-			
-		
-				
+					
 		//dibuja obstaculos de a uno a uno
 		for (int i = 0; i <= obstaculos.length-1; i++) {
 			if (i%2==0) {
@@ -159,14 +159,23 @@ public class Juego extends InterfaceJuego
 			if (proyectil !=null){
 				if (kyojines[i]!=null) {
 				if ((kyojines[i].x >= proyectil.x - 30) && (kyojines[i].x <= proyectil.x + 30) && (kyojines[i].y >= proyectil.y - 30) && (kyojines[i].y <= proyectil.y + 30) ){ 
+					//crea craters en el array con la ubicacion donde mueren los kyojines
+					crater [i] = new Obstaculo ((int)kyojines[i].x,(int) kyojines[i].y);
 					kyojines[i]=null;
+					//aumenta el numero de muertes
 					kills +=1;
 					}
 			}
-			}
-			
+			}			
 			}
 		}
+		//dibuja los crater
+		for (int i = 0; i <= crater.length-1; i++) {
+			if (crater[i]!=null) {
+			crater[i].dibujarCrater(entorno);
+		}
+		}
+		
 		// si chocan con mykasa, mykasa muere
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
