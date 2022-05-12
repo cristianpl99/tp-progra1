@@ -55,7 +55,7 @@ public class Juego extends InterfaceJuego
 		//si mata a los cuatro kyojines, gana el juego
 	if(kills == 4){
 			entorno.cambiarFont("Arial", 50, Color.BLACK);
-			entorno.escribirTexto("GANASTE", 250, 100);
+			entorno.escribirTexto("GANASTE!", 250, 100);
 			
 		}
 		//chequea al principio del ciclo si mikasa esta viva
@@ -96,10 +96,9 @@ public class Juego extends InterfaceJuego
 				proyectil = null;
 			}
 			
-	
 		
 				
-		//dibuja obstaculos de a uno en uno
+		//dibuja obstaculos de a uno a uno
 		for (int i = 0; i <= obstaculos.length-1; i++) {
 			if (i%2==0) {
 				obstaculos[i].dibujarArbol(entorno);
