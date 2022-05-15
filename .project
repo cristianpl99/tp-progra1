@@ -55,6 +55,16 @@
 			<type>1</type>
 			<location>C:/Users/crist/Desktop/UNGS/P1/ProyectoBaseTP/src/pocima.png</location>
 		</link>
+		<link>
+			<name>src/pocima2.png</name>
+			<type>1</type>
+			<location>C:/Users/crist/Desktop/UNGS/P1/ProyectoBaseTP/src/pocima2.png</location>
+		</link>
+		<link>
+			<name>src/suero.png</name>
+			<type>1</type>
+			<location>C:/Users/crist/Desktop/UNGS/P1/ProyectoBaseTP/src/suero.png</location>
+		</link>
 	</linkedResources>
 	<filteredResources>
 		<filter>

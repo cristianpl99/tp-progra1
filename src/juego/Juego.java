@@ -11,12 +11,13 @@ public class Juego extends InterfaceJuego
 	Obstaculo [] obstaculos;
 	Obstaculo [] crater;
 	Proyectil proyectil;
-	Pocima pocima;
+	Pocima[] pocimas;
 	Fondo fondo;
+	//inicializar el tiempo en 3600 ticks / 60 segundos
 	int tiempo = 3600;
 	int segundos = 0;
 	int kills = 0;
-	
+	boolean fin = false;
 	Juego()
 	{
 		// Inicializa el objeto entorno, pero aun no lo inicia.
@@ -35,6 +36,8 @@ public class Juego extends InterfaceJuego
 			kyojines[3] = new Kyojin(550, 550, 1, Math.PI/4, 30);	
 		// array de obstaculos con la imagen del crater
 		crater = new Obstaculo [4];
+		//array de pocimas con distintos efectos
+		pocimas = new Pocima [4];
 		/* 
 		 * Es fundamental que recién al final del constructor de la clase Juego se 
 		 * inicie el objeto entorno de la siguiente manera.
@@ -55,19 +58,19 @@ public class Juego extends InterfaceJuego
 		segundos = tiempo / 60;		          
 		
 		//si mata a los cuatro kyojines, gana el juego
-	if(kills == 4){
+	if(fin == true){
 			entorno.cambiarFont("Arial", 50, Color.BLACK);
 			entorno.escribirTexto("GANASTE!", 250, 100);
 			
 		}
 		//chequea al principio del ciclo si mikasa esta viva
-	if (mikasa == null || tiempo <= 0){
+	if (mikasa == null || segundos <= 0){
 		entorno.cambiarFont("Arial", 50, Color.BLACK);
 		entorno.escribirTexto("GAME OVER ", 250, 100);
 	}
 	
-	
-	else{
+		//si se dan las condiciones, el juego sigue
+	if ((mikasa !=null)&&(segundos > 0)&& (fin == false)){
 		{	
 		//mueve a mikasa
 		if (entorno.estaPresionada(entorno.TECLA_DERECHA))
@@ -75,13 +78,44 @@ public class Juego extends InterfaceJuego
 
 		if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA))
 			mikasa.girar(Herramientas.radianes(-1));
-
-		if (entorno.estaPresionada(entorno.TECLA_ARRIBA))
-			mikasa.moverAdelante();
 		
-		if (entorno.estaPresionada(entorno.TECLA_ABAJO))
-			mikasa.moverAtras();
+		//si llega al borde, mikasa queda ahi
+		if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
+			if (mikasa.x <= 10){
+				mikasa.x = 11;
+			}
+			if (mikasa.x >= 790){
+				mikasa.x = 789;
+			}
+			if (mikasa.y <= 10) {
+				mikasa.y = 11;
+			}
+			if (mikasa.y >= 590) {
+				mikasa.y = 589;
+			}
+			else {
+				mikasa.moverAdelante();
+			}
+		}
 		
+		if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
+			if (mikasa.x <= 10){
+				mikasa.x = 11;
+			}
+			if (mikasa.x >= 790){
+				mikasa.x = 789;
+			}
+			if (mikasa.y <= 10) {
+				mikasa.y = 11;
+			}
+			if (mikasa.y >= 590) {
+				mikasa.y = 589;
+			}
+			else {
+				mikasa.moverAtras();
+			}
+		}
+			
 	
 		// proyectil
 		if (entorno.sePresiono(entorno.TECLA_ESPACIO)&& proyectil == null){
@@ -107,22 +141,38 @@ public class Juego extends InterfaceJuego
 				obstaculos[i].dibujarCasa(entorno);
 			}
 		}
+		//dibuja los crater
+			for (int i = 0; i <= crater.length-1; i++) {
+				if (crater[i]!=null) {
+					crater[i].dibujarCrater(entorno);
+				}
+			}
 		//cada cinco segundos pone una pocima en el juego
 		if (tiempo % 360 == 0){
-			pocima = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1));
+			pocimas[0] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 1);
 		}
-		if (pocima!=null) {
-			pocima.dibujarPocima(entorno);
+		if (tiempo % 720 == 0){
+			pocimas[1] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 2);
+		}
+		if (tiempo % 720 == 0){
+			pocimas[2] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 3);
 		}
 		
-		if (pocima!=null) {
-		if ((mikasa.x >= pocima.x - 15) && (mikasa.x <= pocima.x + 15) && (mikasa.y >= pocima.y - 15) && (mikasa.y <= pocima.y + 15) ) {
-			for (int i = 0; i <= kyojines.length-1; i++) {
-				if (kyojines[i]!=null) {
-				kyojines[i].velocidad = 0.2;		
+		for (int i = 0; i <= pocimas.length-1; i++) {
+		if (pocimas[i]!=null) {
+			pocimas[i].dibujarPocima(entorno);
+			}
+		}
+		for (int i = 0; i <= pocimas.length-1; i++) {
+			if (pocimas[i]!=null) {
+				if ((mikasa.x >= pocimas[i].x - 15) && (mikasa.x <= pocimas[i].x + 15) && (mikasa.y >= pocimas[i].y - 15) && (mikasa.y <= pocimas[i].y + 15) ) {
+					for (int j = 0; j <= kyojines.length-1; j++) {
+				if (kyojines[j]!=null) {
+					kyojines[j].velocidad = 0.2;		
 			}
 			}
-			pocima = null;
+			pocimas[i] = null;
+		}
 		}
 		}
 		if (mikasa != null){
@@ -158,7 +208,7 @@ public class Juego extends InterfaceJuego
 			//si el proyectil choca con un kyojin, lo mata
 			if (proyectil !=null){
 				if (kyojines[i]!=null) {
-				if ((kyojines[i].x >= proyectil.x - 30) && (kyojines[i].x <= proyectil.x + 30) && (kyojines[i].y >= proyectil.y - 30) && (kyojines[i].y <= proyectil.y + 30) ){ 
+				if ((kyojines[i].x >= proyectil.x - 40) && (kyojines[i].x <= proyectil.x + 40) && (kyojines[i].y >= proyectil.y - 40) && (kyojines[i].y <= proyectil.y + 40) ){ 
 					//crea craters en el array con la ubicacion donde mueren los kyojines
 					crater [i] = new Obstaculo ((int)kyojines[i].x,(int) kyojines[i].y);
 					kyojines[i]=null;
@@ -169,12 +219,28 @@ public class Juego extends InterfaceJuego
 			}			
 			}
 		}
-		//dibuja los crater
-		for (int i = 0; i <= crater.length-1; i++) {
-			if (crater[i]!=null) {
-			crater[i].dibujarCrater(entorno);
+		//cada diez segundos hace respawn de kyojines
+		if (tiempo % 720 == 0) {
+		for (int i = 0; i <= kyojines.length-1; i++) {
+			if (kyojines[i]==null) {
+				kyojines[i] = new Kyojin(40, 40, 1, Math.PI/4, 30);	
+				kyojines[i].dibujarse(entorno);
+				break;
+			}
+		}	
 		}
 		}
+		
+		//chequea si quedan kyojines
+		for (int i = 0; i <= kyojines.length-1; i++) {
+			if (kyojines[i]!=null) {
+				fin = false;
+				break;
+				}
+			else {
+				fin = true;
+			}
+			}
 		
 		// si chocan con mykasa, mykasa muere
 		for (int i = 0; i <= kyojines.length-1; i++) {
@@ -192,7 +258,7 @@ public class Juego extends InterfaceJuego
 		
 	}	
 	}
-	}
+	
 	
 	
 
