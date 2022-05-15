@@ -39,9 +39,9 @@ public class Mikasa
 	if (this.convertida == true){
 	
 		if (entorno.estaPresionada(entorno.TECLA_ARRIBA))
-			entorno.dibujarImagen(img2, this.x, this.y, this.angulo, 0.3);
+			entorno.dibujarImagen(img2, this.x, this.y, this.angulo, 0.2);
 		else
-			entorno.dibujarImagen(img2, this.x, this.y, this.angulo, 0.3);
+			entorno.dibujarImagen(img2, this.x, this.y, this.angulo, 0.2);
 	}
 	}
 

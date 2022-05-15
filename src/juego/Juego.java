@@ -14,7 +14,7 @@ public class Juego extends InterfaceJuego
 	Pocima[] pocimas;
 	Fondo fondo;
 	//inicializar el tiempo en 3600 ticks / 60 segundos
-	int tiempo = 3600;
+	int tiempo = 1200;
 	int segundos = 0;
 	int kills = 0;
 	boolean fin = false;
@@ -34,8 +34,8 @@ public class Juego extends InterfaceJuego
 			kyojines[1] = new Kyojin(50, 550, 1, Math.PI/4, 30);
 			kyojines[2] = new Kyojin(550, 50, 1, Math.PI/4, 30);
 			kyojines[3] = new Kyojin(550, 550, 1, Math.PI/4, 30);	
-		// array de obstaculos con la imagen del crater
-		crater = new Obstaculo [4];
+		// array de obstaculos con la imagen del crater (tope tentativo de 10)
+		crater = new Obstaculo [10];
 		//array de pocimas con distintos efectos
 		pocimas = new Pocima [4];
 		/* 
@@ -57,8 +57,8 @@ public class Juego extends InterfaceJuego
 		tiempo -= 1;
 		segundos = tiempo / 60;		          
 		
-		//si mata a los cuatro kyojines, gana el juego
-	if(fin == true){
+		//si mata a los kyojines en pantalla, gana el juego
+	if((fin == true)&& (mikasa != null)){
 			entorno.cambiarFont("Arial", 50, Color.BLACK);
 			entorno.escribirTexto("GANASTE!", 250, 100);
 			
@@ -70,7 +70,7 @@ public class Juego extends InterfaceJuego
 	}
 	
 		//si se dan las condiciones, el juego sigue
-	if ((mikasa !=null)&&(segundos > 0)&& (fin == false)){
+	if ((mikasa !=null)&&(segundos > 0)&&(fin == false)){
 		{	
 		//mueve a mikasa
 		if (entorno.estaPresionada(entorno.TECLA_DERECHA))
@@ -271,22 +271,26 @@ public class Juego extends InterfaceJuego
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
 				if ((kyojines[i].x >= mikasa.x - 60) && (kyojines[i].x <= mikasa.x + 60) && (kyojines[i].y >= mikasa.y - 60) && (kyojines[i].y <= mikasa.y + 60)){ 
-					if (mikasa.convertida == false);{
-						mikasa = null;
-				}
 					if (mikasa.convertida == true);{
 						kyojines[i] = null;
-						break;
+				}
+					if (mikasa.convertida == false);{
+						mikasa = null;
+						fin = true;
+						;
 				}
 			}
 			}
-		}
-		
-	
-				
-		entorno.cambiarFont("Arial", 25, Color.white);
-		entorno.escribirTexto("TIME: " + segundos, 500, 100);
-		entorno.cambiarFont("Arial", 25, Color.red);
+		}			
+		//si quedan menos de 15 segundos, cambia el color del timer
+		if (segundos >= 15){
+			entorno.cambiarFont("Arial", 30, Color.white);	
+			entorno.escribirTexto("TIME: " + segundos, 500, 100);
+		}else{
+			entorno.cambiarFont("Arial", 30, Color.red);
+			entorno.escribirTexto("TIME: " + segundos, 500, 100);
+			}
+		entorno.cambiarFont("Arial", 25, Color.yellow);
 		entorno.escribirTexto("KILLS: " + kills, 500, 130);
 		
 	}	
