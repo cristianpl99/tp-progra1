@@ -147,14 +147,16 @@ public class Juego extends InterfaceJuego
 					crater[i].dibujarCrater(entorno);
 				}
 			}
-		//cada cinco segundos pone una pocima en el juego
+		//cada cinco segundos pone una pocima de lentitud en el juego
 		if (tiempo % 360 == 0){
 			pocimas[0] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 1);
 		}
+		//cada diez segundos pone una pocima mata kyojin en juego
 		if (tiempo % 720 == 0){
 			pocimas[1] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 2);
 		}
-		if (tiempo % 720 == 0){
+		//cada quince segundos pone una suero convertidor (?) en juego
+		if (tiempo % 1080 == 0){
 			pocimas[2] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 3);
 		}
 		
@@ -163,18 +165,41 @@ public class Juego extends InterfaceJuego
 			pocimas[i].dibujarPocima(entorno);
 			}
 		}
+		//si mikasa pasa agarra una pocima, chequea que tipo de pocima es.
 		for (int i = 0; i <= pocimas.length-1; i++) {
 			if (pocimas[i]!=null) {
 				if ((mikasa.x >= pocimas[i].x - 15) && (mikasa.x <= pocimas[i].x + 15) && (mikasa.y >= pocimas[i].y - 15) && (mikasa.y <= pocimas[i].y + 15) ) {
-					for (int j = 0; j <= kyojines.length-1; j++) {
-				if (kyojines[j]!=null) {
-					kyojines[j].velocidad = 0.2;		
-			}
-			}
-			pocimas[i] = null;
+					if (pocimas[i].tipo == 1){
+						for (int j = 0; j <= kyojines.length-1; j++) {
+							if (kyojines[j]!=null) {
+								kyojines[j].velocidad = 0.2;
+								pocimas[i] = null;
+								break;
+							}
+						}
+					}
+				
+					if(pocimas[i].tipo == 2){
+						for (int j = 0; j <= kyojines.length-1; j++) {
+							if (kyojines[j]!=null) {
+								kyojines[j]=null;
+								pocimas[i] = null;
+								break;
+							}	
+					}		
+					}
+				
+					if(pocimas[i].tipo == 3){
+						mikasa.convertida = true;
+						pocimas[i] = null;
+							break;
+							}	
+							
+			
 		}
-		}
-		}
+	}
+}
+	
 		if (mikasa != null){
 			mikasa.dibujarse(entorno);
 		}
@@ -229,7 +254,7 @@ public class Juego extends InterfaceJuego
 			}
 		}	
 		}
-		}
+		
 		
 		//chequea si quedan kyojines
 		for (int i = 0; i <= kyojines.length-1; i++) {
@@ -246,10 +271,18 @@ public class Juego extends InterfaceJuego
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
 				if ((kyojines[i].x >= mikasa.x - 60) && (kyojines[i].x <= mikasa.x + 60) && (kyojines[i].y >= mikasa.y - 60) && (kyojines[i].y <= mikasa.y + 60)){ 
-					mikasa = null;
+					if (mikasa.convertida == false);{
+						mikasa = null;
+				}
+					if (mikasa.convertida == true);{
+						kyojines[i] = null;
+						break;
 				}
 			}
+			}
 		}
+		
+	
 				
 		entorno.cambiarFont("Arial", 25, Color.white);
 		entorno.escribirTexto("TIME: " + segundos, 500, 100);
@@ -258,8 +291,7 @@ public class Juego extends InterfaceJuego
 		
 	}	
 	}
-	
-	
+}
 	
 
 	@SuppressWarnings("unused")
@@ -270,5 +302,4 @@ public class Juego extends InterfaceJuego
 
 	}
 }
-
 		

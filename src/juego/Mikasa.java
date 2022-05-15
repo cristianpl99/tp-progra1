@@ -12,6 +12,7 @@ public class Mikasa
 	double x;
 	double y;
 	double angulo;
+	boolean convertida;
 	Image img1;
 	Image img2;
 	
@@ -20,19 +21,28 @@ public class Mikasa
 	{
 		this.x = x;
 		this.y = y;
+		convertida = false;
 		
 		img1 = Herramientas.cargarImagen("mikasa.png");
-		img2 = Herramientas.cargarImagen("mikasa.png");
+		img2 = Herramientas.cargarImagen("convertida.png");
 	}
 	
 	public void dibujarse(Entorno entorno)
 	{
-//		entorno.dibujarTriangulo(this.x, this.y, 50, 30, this.angulo, Color.yellow);
+		if (this.convertida == false){
 	
 		if (entorno.estaPresionada(entorno.TECLA_ARRIBA))
 			entorno.dibujarImagen(img1, this.x, this.y, this.angulo, 0.1);
 		else
-			entorno.dibujarImagen(img2, this.x, this.y, this.angulo, 0.1);
+			entorno.dibujarImagen(img1, this.x, this.y, this.angulo, 0.1);
+	}
+	if (this.convertida == true){
+	
+		if (entorno.estaPresionada(entorno.TECLA_ARRIBA))
+			entorno.dibujarImagen(img2, this.x, this.y, this.angulo, 0.3);
+		else
+			entorno.dibujarImagen(img2, this.x, this.y, this.angulo, 0.3);
+	}
 	}
 
 	public void girar(double modificador) 
