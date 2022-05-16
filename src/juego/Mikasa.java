@@ -9,9 +9,9 @@ import entorno.Herramientas;
 public class Mikasa 
 {
 	// Variables de instancia
-	double x;
-	double y;
-	double angulo;
+	static double x;
+	static double y;
+	static double angulo;
 	boolean convertida;
 	Image img1;
 	Image img2;

@@ -18,22 +18,35 @@ public class Kyojin {
 	public Kyojin(double x, double y, double velocidad, double angulo, int radio) {
 		this.x = x;
 		this.y = y;
-		this.velocidad = velocidad*2;
+		this.velocidad = 0.4;
 		this.angulo = angulo;
 		this.radio = radio;
 		img3 = Herramientas.cargarImagen("kyojin.png");
 	}
 	
 	public void dibujarse(Entorno e) {
-		e.dibujarImagen(img3, this.x, this.y, this.angulo, 0.3);
+		e.dibujarImagen(img3, this.x, this.y, 0.3, 0.3);
 	}
 
 	public void mover() {
-		y += velocidad * Math.sin(angulo);
-		x += velocidad * Math.cos(angulo);
+		if (Mikasa.x >= this.x){
+			x += velocidad *  Math.cos(angulo);
+		}
+		if (Mikasa.x < this.x){
+			x -= velocidad *  Math.cos(angulo);
+		}
+		if (Mikasa.y >= this.y){
+			y += velocidad *  Math.sin(angulo);
+		}
+		if (Mikasa.y < this.y){
+			y -= velocidad *  Math.sin(angulo);
+		}
+		/* forma original de mover los kyokines
+		y -= velocidad * Math.sin(Mikasa.angulo);
+		x -= velocidad * Math.cos(Mikasa.angulo);
+		*/
 	}
 	
-	//FIXME
 	public boolean chocasteCon(Entorno e) {
 		return x <= radio || y <= radio || x >= e.ancho() - radio || y >= e.alto() - radio;		
 	}

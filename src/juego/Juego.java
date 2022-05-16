@@ -14,7 +14,7 @@ public class Juego extends InterfaceJuego
 	Pocima[] pocimas;
 	Fondo fondo;
 	//inicializar el tiempo en 3600 ticks / 60 segundos
-	int tiempo = 1200;
+	int tiempo = 3600;
 	int segundos = 0;
 	int kills = 0;
 	boolean fin = false;
