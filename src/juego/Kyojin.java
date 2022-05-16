@@ -18,14 +18,14 @@ public class Kyojin {
 	public Kyojin(double x, double y, double velocidad, double angulo, int radio) {
 		this.x = x;
 		this.y = y;
-		this.velocidad = 0.4;
+		this.velocidad = velocidad;
 		this.angulo = angulo;
 		this.radio = radio;
 		img3 = Herramientas.cargarImagen("kyojin.png");
 	}
 	
 	public void dibujarse(Entorno e) {
-		e.dibujarImagen(img3, this.x, this.y, 0.3, 0.3);
+		e.dibujarImagen(img3, this.x, this.y, 0.3, 0.2);
 	}
 
 	public void mover() {

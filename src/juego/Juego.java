@@ -208,13 +208,14 @@ public class Juego extends InterfaceJuego
 			if (kyojines[i]!=null) {
 			kyojines[i].dibujarse(entorno);
 			}
-		}
+		}/*
 		//mueve los kyojines
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
 				kyojines[i].mover();
 			}
 		}
+		*/
 		//si chocan con el borde, cambian de trayectoria
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
@@ -222,14 +223,9 @@ public class Juego extends InterfaceJuego
 					kyojines[i].cambiarTrayectoria();
 			}
 		}
-		//si chocan con obstaculos, cambian de trayectoria. 
-		//hay que hacerlo como metodo de clase???
+		
 		for (int i = 0; i <= kyojines.length-1; i++) {
-			for (int j = 0; j <= obstaculos.length-1; j++) {
-			if (kyojines[i]!=null) {	
-				if ((kyojines[i].x >= obstaculos[j].x - 15) && (kyojines[i].x <= obstaculos[j].x + 15) && (kyojines[i].y >= obstaculos[j].y - 15) && (kyojines[i].y <= obstaculos[j].y + 15) ){ 
-					kyojines[i].cambiarTrayectoria();}
-			}
+			
 			//si el proyectil choca con un kyojin, lo mata
 			if (proyectil !=null){
 				if (kyojines[i]!=null) {
@@ -243,7 +239,24 @@ public class Juego extends InterfaceJuego
 			}
 			}			
 			}
+		
+		
+		//mueve los kyojines
+		for (int i = 0; i <= kyojines.length-1; i++) {
+			if (kyojines[i]!=null) {
+				kyojines[i].mover();
+			}
 		}
+		//si chocan con un obstaculo cambian de trayectoria
+		for (int i = 0; i <= kyojines.length-1; i++) {
+			for (int j = 0; j <= obstaculos.length-1; j++) {
+			if (kyojines[i]!=null) {	
+				if ((kyojines[i].x >= obstaculos[j].x - 35) && (kyojines[i].x <= obstaculos[j].x + 35) && (kyojines[i].y >= obstaculos[j].y - 35) && (kyojines[i].y <= obstaculos[j].y + 35) ){ 
+					kyojines[i].cambiarTrayectoria();}
+			}
+		}
+	}
+		
 		//cada diez segundos hace respawn de kyojines
 		if (tiempo % 720 == 0) {
 		for (int i = 0; i <= kyojines.length-1; i++) {
