@@ -86,12 +86,10 @@ public class Juego extends InterfaceJuego
 		if (entorno.sePresiono(entorno.TECLA_ESPACIO)&& proyectil == null){
 			double direccion;
 			direccion =  mikasa.angulo;
-			proyectil = new Proyectil(mikasa.x, mikasa.y, 5, direccion, 1, true);	
+			proyectil = new Proyectil(mikasa.x, mikasa.y, 5, direccion, 1, true);
+			Herramientas.play("misil.wav");
 			}		
-		if (proyectil != null){  
-			proyectil.dibujar(entorno);
-			proyectil.mover();
-		}
+		
 		//si sale del limite de la pantalla, lo pone en null
 		if((proyectil != null) &&(proyectil.chocasteCon(entorno)== true)) {
 				proyectil = null;
@@ -129,6 +127,11 @@ public class Juego extends InterfaceJuego
 		if (pocimas[i]!=null) {
 			pocimas[i].dibujarPocima(entorno);
 			}
+		}
+		//dibuja el proyectil por encima de todo
+		if (proyectil != null){  
+			proyectil.dibujar(entorno);
+			proyectil.mover();
 		}
 		//si mikasa pasa agarra una pocima, chequea que tipo de pocima es.
 		for (int i = 0; i <= pocimas.length-1; i++) {
@@ -190,6 +193,8 @@ public class Juego extends InterfaceJuego
 					//crea craters en el array con la ubicacion donde mueren los kyojines
 					crater [i] = new Obstaculo ((int)kyojines[i].x,(int) kyojines[i].y);
 					kyojines[i]=null;
+					//reproduce sonido de explosion
+					Herramientas.play("explosion.wav");
 					//aumenta el numero de muertes
 					kills +=1;
 					}

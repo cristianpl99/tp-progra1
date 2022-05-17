@@ -60,8 +60,8 @@ public class Mikasa
 	}
 	public void teclaUp (Entorno entorno) { 
 		if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) { 
-		 if (this.x <= 10){ 
-		  this.x = 11; 
+		if (this.x <= 10){ 
+		  	this.x = 11; 
 		 } 
 		 if (this.x >= 790){ 
 		  this.x = 789; 
