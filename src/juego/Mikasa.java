@@ -58,5 +58,54 @@ public class Mikasa
 		this.x -= Math.cos(this.angulo)*3;
 		this.y -= Math.sin(this.angulo)*3;
 	}
+	public void teclaUp (Entorno entorno) { 
+		if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) { 
+		 if (this.x <= 10){ 
+		  this.x = 11; 
+		 } 
+		 if (this.x >= 790){ 
+		  this.x = 789; 
+		 } 
+		 if (this.y <= 10) { 
+		  this.y = 11; 
+		 } 
+		 if (this.y >= 590) { 
+		  this.y = 589; 
+		 } 
+		 else { 
+		  this.moverAdelante(); 
+		 } 
+		} 
+	   }  
+	   
+	   public void teclaDown (Entorno entorno) { 
+		if (entorno.estaPresionada(entorno.TECLA_ABAJO)) { 
+		 if (this.x <= 10){ 
+		  this.x = 11; 
+		 } 
+		 if (this.x >= 790){ 
+		  this.x = 789; 
+		 } 
+		 if (this.y <= 10) { 
+		  this.y = 11; 
+		 } 
+		 if (this.y >= 590) { 
+		  this.y = 589; 
+		 } 
+		 else { 
+		  this.moverAtras(); 
+		 } 
+	   } 
+	   } 
+	   public void teclaRight (Entorno entorno) { 
+		if (entorno.estaPresionada(entorno.TECLA_DERECHA)) 
+		 this.girar(Herramientas.radianes(1)); 
+	   } 
+	   
+	   public void teclaLeft(Entorno entorno) { 
+		if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) 
+		 this.girar(Herramientas.radianes(-1)); 
+	   
+	   }
 	
 }

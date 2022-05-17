@@ -27,7 +27,7 @@ public class Kyojin {
 	public void dibujarse(Entorno e) {
 		e.dibujarImagen(img3, this.x, this.y, 0.3, 0.2);
 	}
-
+	//usa la ubicacion de mikasa para moverse hacia ella
 	public void mover() {
 		if (Mikasa.x >= this.x){
 			x += velocidad *  Math.cos(angulo);

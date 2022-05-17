@@ -1,5 +1,8 @@
 package juego;
 import java.awt.Color;
+
+import javax.sound.midi.Soundbank;
+
 import entorno.*;
 
 public class Juego extends InterfaceJuego
@@ -71,51 +74,13 @@ public class Juego extends InterfaceJuego
 	
 		//si se dan las condiciones, el juego sigue
 	if ((mikasa !=null)&&(segundos > 0)&&(fin == false)){
-		{	
-		//mueve a mikasa
-		if (entorno.estaPresionada(entorno.TECLA_DERECHA))
-			mikasa.girar(Herramientas.radianes(1));
-
-		if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA))
-			mikasa.girar(Herramientas.radianes(-1));
-		
-		//si llega al borde, mikasa queda ahi
-		if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
-			if (mikasa.x <= 10){
-				mikasa.x = 11;
-			}
-			if (mikasa.x >= 790){
-				mikasa.x = 789;
-			}
-			if (mikasa.y <= 10) {
-				mikasa.y = 11;
-			}
-			if (mikasa.y >= 590) {
-				mikasa.y = 589;
-			}
-			else {
-				mikasa.moverAdelante();
-			}
-		}
-		
-		if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
-			if (mikasa.x <= 10){
-				mikasa.x = 11;
-			}
-			if (mikasa.x >= 790){
-				mikasa.x = 789;
-			}
-			if (mikasa.y <= 10) {
-				mikasa.y = 11;
-			}
-			if (mikasa.y >= 590) {
-				mikasa.y = 589;
-			}
-			else {
-				mikasa.moverAtras();
-			}
-		}
+		{
 			
+		//mueve a mikasa
+		mikasa.teclaRight(entorno); 
+ 		mikasa.teclaLeft(entorno); 
+  		mikasa.teclaUp(entorno); 
+  		mikasa.teclaDown(entorno);	
 	
 		// proyectil
 		if (entorno.sePresiono(entorno.TECLA_ESPACIO)&& proyectil == null){
@@ -177,8 +142,7 @@ public class Juego extends InterfaceJuego
 								break;
 							}
 						}
-					}
-				
+					}				
 					if(pocimas[i].tipo == 2){
 						for (int j = 0; j <= kyojines.length-1; j++) {
 							if (kyojines[j]!=null) {
@@ -208,14 +172,7 @@ public class Juego extends InterfaceJuego
 			if (kyojines[i]!=null) {
 			kyojines[i].dibujarse(entorno);
 			}
-		}/*
-		//mueve los kyojines
-		for (int i = 0; i <= kyojines.length-1; i++) {
-			if (kyojines[i]!=null) {
-				kyojines[i].mover();
-			}
 		}
-		*/
 		//si chocan con el borde, cambian de trayectoria
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
@@ -238,9 +195,7 @@ public class Juego extends InterfaceJuego
 					}
 			}
 			}			
-			}
-		
-		
+			}	
 		//mueve los kyojines
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
@@ -257,7 +212,7 @@ public class Juego extends InterfaceJuego
 		}
 	}
 		
-		//cada diez segundos hace respawn de kyojines
+		//cada diez segundos hace respawn de kyojines si hay menos de 4
 		if (tiempo % 720 == 0) {
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]==null) {
@@ -267,7 +222,6 @@ public class Juego extends InterfaceJuego
 			}
 		}	
 		}
-		
 		
 		//chequea si quedan kyojines
 		for (int i = 0; i <= kyojines.length-1; i++) {
@@ -284,12 +238,14 @@ public class Juego extends InterfaceJuego
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
 				if ((kyojines[i].x >= mikasa.x - 60) && (kyojines[i].x <= mikasa.x + 60) && (kyojines[i].y >= mikasa.y - 60) && (kyojines[i].y <= mikasa.y + 60)){ 
-					if (mikasa.convertida == true);{
-						kyojines[i] = null;
-				}
-					if (mikasa.convertida == false);{
+					if (mikasa.convertida == false){
 						mikasa = null;
 						fin = true;
+				}
+					if (mikasa.convertida == true){
+							kyojines[i] = null;
+							mikasa.convertida= false;
+							kills +=1;
 						;
 				}
 			}
