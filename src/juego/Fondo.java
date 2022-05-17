@@ -12,6 +12,7 @@ public class Fondo
 	int fase;
 	Image inicio;
 	Image principal;
+	Image game_over;
 	
 	
 	public Fondo(double x, double y, int fase) 
@@ -21,14 +22,17 @@ public class Fondo
 		this.fase = fase;
 		inicio = Herramientas.cargarImagen("inicio.jpg");
 		principal = Herramientas.cargarImagen("fondo.jpg");
+		game_over = Herramientas.cargarImagen("game_over.jpg");
 	}
 	public void dibujarse(Entorno entorno)
-	{ 
-		if (this.fase == 1){
-			entorno.dibujarImagen(inicio, this.x, this.y, this.angulo, 1);
-		}
+	{ 	
+		//fondo durante el juego
 		if (this.fase == 2){
 			entorno.dibujarImagen(principal, this.x, this.y, this.angulo, 1);
+		}
+		//fondo de game over
+		if (this.fase == 3){
+			entorno.dibujarImagen(game_over, this.x, this.y, this.angulo, 2);
 		}
 		}
 

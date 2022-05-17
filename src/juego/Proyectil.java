@@ -46,7 +46,5 @@ public class Proyectil {
 
 	
 
-	public double getX() {
-		return x;
-	}
+	
 }

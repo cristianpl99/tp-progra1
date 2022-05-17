@@ -17,7 +17,7 @@ public class Juego extends InterfaceJuego
 	Pocima[] pocimas;
 	Fondo fondo;
 	//inicializar el tiempo en 3600 ticks / 60 segundos
-	int tiempo = 3600;
+	int tiempo = 6000;
 	int segundos = 0;
 	int kills = 0;
 	boolean fin = false;
@@ -61,18 +61,21 @@ public class Juego extends InterfaceJuego
 		
 		// setea el tiempo
 		tiempo -= 1;
-		segundos = tiempo / 60;		          
+		segundos = tiempo / 100;		          
 		
 		//si mata a los kyojines en pantalla, gana el juego
 	if((fin == true)&& (mikasa != null)){
-			entorno.cambiarFont("Arial", 50, Color.BLACK);
-			entorno.escribirTexto("GANASTE!", 250, 100);
-			
+			entorno.cambiarFont("Arial", 70, Color.yellow);
+			entorno.escribirTexto("VICTORIA", 230, 280);
+			entorno.cambiarFont("Arial", 40, Color.red);
+			entorno.escribirTexto(kills + "  KYOJINES ELIMINADOS", 170, 450);
 		}
 		//chequea al principio del ciclo si mikasa esta viva
 	if (mikasa == null || segundos <= 0){
-		entorno.cambiarFont("Arial", 50, Color.BLACK);
-		entorno.escribirTexto("GAME OVER ", 250, 100);
+		fondo.fase = 3;
+		entorno.cambiarFont("Arial", 70, Color.yellow);
+		entorno.escribirTexto("GAME OVER", 210, 280);
+		fin = true;
 	}
 	
 		//si se dan las condiciones, el juego sigue
@@ -114,15 +117,15 @@ public class Juego extends InterfaceJuego
 				}
 			}
 		//cada cinco segundos pone una pocima de lentitud en el juego
-		if (tiempo % 360 == 0){
+		if (tiempo == 5400 || tiempo == 4800 || tiempo == 4200 || tiempo == 3600 || tiempo == 3000 || tiempo == 2400 || tiempo == 1800 || tiempo == 1200 || tiempo == 600){
 			pocimas[0] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 1);
 		}
 		//cada diez segundos pone una pocima mata kyojin en juego
-		if (tiempo % 720 == 0){
+		if (tiempo  == 5000 || tiempo == 4000 || tiempo == 3000 || tiempo == 2000 || tiempo == 1000){
 			pocimas[1] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 2);
 		}
 		//cada quince segundos pone una suero convertidor (?) en juego
-		if (tiempo % 1080 == 0){
+		if (tiempo  == 4500 || tiempo == 3000 || tiempo == 1500){
 			pocimas[2] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 3);
 		}
 		
@@ -245,11 +248,11 @@ public class Juego extends InterfaceJuego
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
 				if ((kyojines[i].x >= mikasa.x - 60) && (kyojines[i].x <= mikasa.x + 60) && (kyojines[i].y >= mikasa.y - 60) && (kyojines[i].y <= mikasa.y + 60)){ 
-					if (mikasa.convertida == false){
+					if ((mikasa != null) && (mikasa.convertida == false)){
 						mikasa = null;
 						fin = true;
 				}
-					if (mikasa.convertida == true){
+					if ((mikasa != null) && (mikasa.convertida == true)){
 							kyojines[i] = null;
 							mikasa.convertida= false;
 							kills +=1;
