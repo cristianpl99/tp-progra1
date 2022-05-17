@@ -45,7 +45,9 @@ public class Juego extends InterfaceJuego
 		 * Es fundamental que recién al final del constructor de la clase Juego se 
 		 * inicie el objeto entorno de la siguiente manera.
 		 */
-		entorno.iniciar();		
+		entorno.iniciar();	
+		//inicia la musica del juego
+		Herramientas.play("soundtrack.wav");	
 	}
 	/*
 	 * Durante el juego, el método tick() será ejecutado en cada instante y 
@@ -56,6 +58,7 @@ public class Juego extends InterfaceJuego
 	public void tick(){
 		//dibuja el fondo
 		fondo.dibujarse(entorno);
+		
 		// setea el tiempo
 		tiempo -= 1;
 		segundos = tiempo / 60;		          
@@ -165,8 +168,7 @@ public class Juego extends InterfaceJuego
 			
 		}
 	}
-}
-	
+}	
 		if (mikasa != null){
 			mikasa.dibujarse(entorno);
 		}
