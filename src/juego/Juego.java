@@ -26,7 +26,7 @@ public class Juego extends InterfaceJuego
 		// Inicializa el objeto entorno, pero aun no lo inicia.
 		entorno = new Entorno(this, "Attack on Titan", 800, 600);
 		mikasa = new Mikasa(400, 300);
-		fondo = new Fondo(0,0);
+		fondo = new Fondo(0,0, 2);
 		obstaculos = new Obstaculo [4];
 			obstaculos [0] = new Obstaculo (200, 400);
 			obstaculos [1] = new Obstaculo (600, 400);
@@ -136,7 +136,7 @@ public class Juego extends InterfaceJuego
 			proyectil.dibujar(entorno);
 			proyectil.mover();
 		}
-		//si mikasa pasa agarra una pocima, chequea que tipo de pocima es.
+		//si mikasa agarra una pocima, chequea que tipo de pocima es y su efecto.
 		for (int i = 0; i <= pocimas.length-1; i++) {
 			if (pocimas[i]!=null) {
 				if ((mikasa.x >= pocimas[i].x - 15) && (mikasa.x <= pocimas[i].x + 15) && (mikasa.y >= pocimas[i].y - 15) && (mikasa.y <= pocimas[i].y + 15) ) {

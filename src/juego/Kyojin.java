@@ -36,10 +36,10 @@ public class Kyojin {
 			x -= velocidad *  Math.cos(angulo);
 		}
 		if (Mikasa.y >= this.y){
-			y += velocidad *  Math.sin(angulo);
+			y -= velocidad *  Math.sin(angulo);
 		}
 		if (Mikasa.y < this.y){
-			y -= velocidad *  Math.sin(angulo);
+			y += velocidad *  Math.sin(angulo);
 		}
 		/* forma original de mover los kyokines
 		y -= velocidad * Math.sin(Mikasa.angulo);
