@@ -13,6 +13,7 @@ public class Juego extends InterfaceJuego
 	Mikasa mikasa;
 	Proyectil proyectil;
 	Fondo fondo;
+	Boss boss;
 //arrays de objetos
 	Kyojin [] kyojines;
 	Obstaculo [] obstaculos;
@@ -98,9 +99,10 @@ public class Juego extends InterfaceJuego
 		//si mata a los kyojines en pantalla, gana el juego
 	if((fin == true)&& (mikasa != null)){
 			entorno.cambiarFont("Arial", 70, Color.yellow);
-			entorno.escribirTexto("VICTORIA", 230, 280);
+			entorno.escribirTexto("VICTORY", 230, 280);
 			entorno.cambiarFont("Arial", 40, Color.red);
-			entorno.escribirTexto(kills + "  KYOJINES ELIMINADOS", 170, 450);
+			entorno.escribirTexto(kills + "  KYOJIN KILLED", 170, 450);
+			entorno.escribirTexto("TITAN ELIMINATED", 170, 500);
 		}
 		//chequea al principio del ciclo si mikasa esta viva
 	if (mikasa == null || segundos <= 0){
@@ -234,6 +236,7 @@ public class Juego extends InterfaceJuego
 					//crea craters en el array con la ubicacion donde mueren los kyojines
 					crater [i] = new Obstaculo ((int)kyojines[i].x,(int) kyojines[i].y);
 					kyojines[i]=null;
+					proyectil = null;
 					//reproduce sonido de explosion
 					Herramientas.play("explosion.wav");
 					//aumenta el numero de muertes
@@ -259,7 +262,8 @@ public class Juego extends InterfaceJuego
 	}
 		
 		//cada diez segundos hace respawn de kyojines si hay menos de 4
-		if (tiempo % 720 == 0) {
+		//y no esta el jefe en juego
+		if ((tiempo % 720 == 0)&&(boss ==null)) {
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]==null) {
 				kyojines[i] = new Kyojin(40, 40, 1, Math.PI/4, 30);	
@@ -271,14 +275,16 @@ public class Juego extends InterfaceJuego
 		
 		//chequea si quedan kyojines
 		for (int i = 0; i <= kyojines.length-1; i++) {
-			if (kyojines[i]!=null) {
+			if ((kyojines[i]!=null)&& boss ==null) {
 				fin = false;
 				break;
 				}
-			else {
-				fin = true;
+				//MALISIMO el codigo, mejorar
+				if ((boss == null)&&(kyojines[0] == null)&&(kyojines[1] == null)&&(kyojines[2] == null)&&(kyojines[3] == null)){
+				//si mueren todos los kyojines, pone en juego al jefe final
+				boss = new Boss(1, 1, 01, Math.PI/4, 30, 3);
 			}
-			}
+		}
 		
 		// si chocan con mykasa, mykasa muere. si mikasa esta convertida, el kyojin muere
 		for (int i = 0; i <= kyojines.length-1; i++) {
@@ -303,6 +309,34 @@ public class Juego extends InterfaceJuego
 				}
 			}
 			}
+
+		//jefe final
+		if (boss!=null){
+			boss.cambiarAngulo(mikasa.x, mikasa.y);
+			boss.dibujarse(entorno);
+			boss.mover();
+			if(boss.chocasteCon(entorno)){
+				boss.cambiarTrayectoria();
+			}
+			if ((boss.x >= mikasa.x - 60) && (boss.x <= mikasa.x + 60) && (boss.y >= mikasa.y - 60) && (boss.y <= mikasa.y + 60)){
+				mikasa = null;
+				fin=true;
+			}
+			if (proyectil !=null){
+				if ((boss.x >= proyectil.x - 40) && (boss.x <= proyectil.x + 40) && (boss.y >= proyectil.y - 40) && (boss.y <= proyectil.y + 40) ){ 
+				proyectil = null;
+				boss.vidas --;
+				}
+			}
+			if(boss.vidas == 0){
+				boss = null;
+				fin = true;
+			}
+			entorno.cambiarFont("Arial", 25, Color.yellow);
+			entorno.escribirTexto("BOSS HITS REMAINING  " + boss.vidas, 450, 160);
+			}
+		
+
 		
 		//si quedan vidas, las dibuja. si no quedan pone null a mikasa
 		
