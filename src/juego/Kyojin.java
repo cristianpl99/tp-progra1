@@ -31,8 +31,8 @@ public class Kyojin {
 		this.angulo = Math.atan2(y2 - this.y, x2 - this.x);
 	}
 	public void mover() {
-		this.x += Math.cos(this.angulo)*1;
-		this.y += Math.sin(this.angulo)*1;
+		this.x += Math.cos(this.angulo)*(this.velocidad);
+		this.y += Math.sin(this.angulo)*(this.velocidad);
 		//forma ideada de mover los kyojines antes que cesar pase la version 
 		//asteroides. funciona pero cuando sen = 0 o cos = 0 se ralentiza la 
 		//velocidad de los kyojines
