@@ -187,8 +187,7 @@ public class Juego extends InterfaceJuego
 								pocimas[i] = null;
 								break;
 							}
-						}
-					}				
+						}				
 					if(pocimas[i].tipo == 2){
 						for (int j = 0; j <= kyojines.length-1; j++) {
 							if (kyojines[j]!=null) {
@@ -197,18 +196,16 @@ public class Juego extends InterfaceJuego
 								break;
 							}	
 					}		
-					}
-				
+					}		
 					if(pocimas[i].tipo == 3){
 						mikasa.convertida = true;
 						pocimas[i] = null;
 							break;
-							}	
-							
-			
+							}				
+				}
+				}
+			}	
 		}
-	}
-}	
 		if (mikasa != null){
 			mikasa.dibujarse(entorno);
 		}
@@ -328,12 +325,12 @@ public class Juego extends InterfaceJuego
 				boss.vidas --;
 				}
 			}
+			entorno.cambiarFont("Arial", 25, Color.yellow);
+			entorno.escribirTexto("BOSS HITS REMAINING  " + boss.vidas, 450, 160);
 			if(boss.vidas == 0){
 				boss = null;
 				fin = true;
-			}
-			entorno.cambiarFont("Arial", 25, Color.yellow);
-			entorno.escribirTexto("BOSS HITS REMAINING  " + boss.vidas, 450, 160);
+			}		
 			}
 		
 
