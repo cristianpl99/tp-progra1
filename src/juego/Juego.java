@@ -33,10 +33,10 @@ public class Juego extends InterfaceJuego
 			obstaculos [2] = new Obstaculo (200, 200);
 			obstaculos [3] = new Obstaculo (600, 200);
 		kyojines = new Kyojin [4];	
-			kyojines[0] = new Kyojin(50, 50, 1, Math.PI/4, 30);
-			kyojines[1] = new Kyojin(50, 550, 1, Math.PI/4, 30);
-			kyojines[2] = new Kyojin(550, 50, 1, Math.PI/4, 30);
-			kyojines[3] = new Kyojin(550, 550, 1, Math.PI/4, 30);	
+			kyojines[0] = new Kyojin(50, 50, 0.5, Math.PI/4, 30);
+			kyojines[1] = new Kyojin(50, 550, 0.5, Math.PI/4, 30);
+			kyojines[2] = new Kyojin(550, 50, 0.5, Math.PI/4, 30);
+			kyojines[3] = new Kyojin(550, 550, 0.5, Math.PI/4, 30);	
 		// array de obstaculos con la imagen del crater (tope tentativo de 10)
 		crater = new Obstaculo [10];
 		//array de pocimas con distintos efectos
@@ -47,7 +47,7 @@ public class Juego extends InterfaceJuego
 		 */
 		entorno.iniciar();	
 		//inicia la musica del juego
-		Herramientas.play("soundtrack.wav");	
+		//Herramientas.play("soundtrack.wav");	
 	}
 	/*
 	 * Durante el juego, el método tick() será ejecutado en cada instante y 
@@ -146,7 +146,7 @@ public class Juego extends InterfaceJuego
 					if (pocimas[i].tipo == 1){
 						for (int j = 0; j <= kyojines.length-1; j++) {
 							if (kyojines[j]!=null) {
-								kyojines[j].velocidad = 0.2;
+								kyojines[j].velocidad = 0.1;
 								pocimas[i] = null;
 								break;
 							}
@@ -175,9 +175,11 @@ public class Juego extends InterfaceJuego
 		if (mikasa != null){
 			mikasa.dibujarse(entorno);
 		}
+		//
 		//dibuja los kyojines
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
+			kyojines[i].cambiarAngulo(mikasa.x, mikasa.y);
 			kyojines[i].dibujarse(entorno);
 			}
 		}

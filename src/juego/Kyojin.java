@@ -27,24 +27,30 @@ public class Kyojin {
 	public void dibujarse(Entorno e) {
 		e.dibujarImagen(img3, this.x, this.y, 0.3, 0.2);
 	}
-	//usa la ubicacion de mikasa para moverse hacia ella
+	public void cambiarAngulo(double x2, double y2){
+		this.angulo = Math.atan2(y2 - this.y, x2 - this.x);
+	}
 	public void mover() {
+		this.x += Math.cos(this.angulo)*1;
+		this.y += Math.sin(this.angulo)*1;
+		//forma ideada de mover los kyojines antes que cesar pase la version 
+		//asteroides. funciona pero cuando sen = 0 o cos = 0 se ralentiza la 
+		//velocidad de los kyojines
+		/*
 		if (Mikasa.x >= this.x){
-			x += velocidad *  Math.cos(angulo);
+			x += velocidad * Math.cos(angulo);
 		}
-		if (Mikasa.x < this.x){
-			x -= velocidad *  Math.cos(angulo);
+		if (Mikasa.x <= this.x){
+			x -= velocidad * Math.cos(angulo);
 		}
 		if (Mikasa.y >= this.y){
-			y -= velocidad *  Math.sin(angulo);
+			y -= velocidad * Math.sin(angulo);
 		}
-		if (Mikasa.y < this.y){
-			y += velocidad *  Math.sin(angulo);
+		if (Mikasa.y <= this.y){
+			y += velocidad * Math.sin(angulo);
 		}
-		/* forma original de mover los kyokines
-		y -= velocidad * Math.sin(Mikasa.angulo);
-		x -= velocidad * Math.cos(Mikasa.angulo);
 		*/
+		
 	}
 	
 	public boolean chocasteCon(Entorno e) {
@@ -53,10 +59,6 @@ public class Kyojin {
 	
 	public void cambiarTrayectoria() {
 		angulo += Math.PI/3;
-	}
-	
-	public void acelerar() {
-		velocidad += 0.8;
 	}
 	
 	

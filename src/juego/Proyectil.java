@@ -34,7 +34,6 @@ public class Proyectil {
 		this.y += (Math.sin(this.angulo)*2) * velocidad;
 	}
 	
-	//FIXME
 	public boolean chocasteCon(Entorno e) {
 
 		return  x >= e.ancho() || x <=0 || y >= e.alto()|| y <=0;		
