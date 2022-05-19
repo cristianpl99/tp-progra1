@@ -50,11 +50,7 @@ public class Juego extends InterfaceJuego
 		crater = new Obstaculo [10];
 		//array de pocimas con distintos efectos
 		pocimas = new Pocima [4];
-		//array de vidas
-		vidas = new Vidas [3];
-			vidas[0]= new Vidas (550, 550);
-			vidas[1]= new Vidas (650, 550);
-			vidas[2]= new Vidas (750, 550);
+		
 
 		/* 
 		 * Es fundamental que recién al final del constructor de la clase Juego se 
@@ -100,7 +96,16 @@ public class Juego extends InterfaceJuego
 			kyojines[1] = new Kyojin(50, 550, 1, Math.PI/4, 30);
 			kyojines[2] = new Kyojin(550, 50, 1, Math.PI/4, 30);
 			kyojines[3] = new Kyojin(550, 550, 1, Math.PI/4, 30);
+			//mejorar con un for
+			vidas = new Vidas [5];
+			vidas[0]= new Vidas (500, 550);
+			vidas[1]= new Vidas (550, 550);
+			vidas[2]= new Vidas (600, 550);
+			vidas[3]= new Vidas (650, 550);
+			vidas[4]= new Vidas (700, 550);
 			
+			cont_vidas = vidas.length;
+
 		    nivel=true;
 		}
 		//nivel medio
@@ -111,6 +116,15 @@ public class Juego extends InterfaceJuego
 			kyojines[2] = new Kyojin(550, 50, 1.5, Math.PI/4, 30);
 			kyojines[3] = new Kyojin(550, 550, 1.5, Math.PI/4, 30);
 		    
+			//mejorar con un for
+			vidas = new Vidas [4];
+			vidas[0]= new Vidas (500, 550);
+			vidas[1]= new Vidas (550, 550);
+			vidas[2]= new Vidas (600, 550);
+			vidas[3]= new Vidas (650, 550);
+			
+			
+			cont_vidas = vidas.length;
 			nivel=true;
 		}
 		//nivel dificil
@@ -122,6 +136,11 @@ public class Juego extends InterfaceJuego
 			kyojines[3] = new Kyojin(550, 550, 2.2, Math.PI/4, 30);
 			kyojines[4] = new Kyojin(660, 490, 2.2, Math.PI/4, 30);
      		
+			vidas = new Vidas [3];
+			vidas[0]= new Vidas (550, 550);
+			vidas[1]= new Vidas (650, 550);
+			vidas[2]= new Vidas (750, 550);
+			cont_vidas = vidas.length;
 			nivel=true;
 		}
 		
@@ -233,7 +252,7 @@ public class Juego extends InterfaceJuego
 							}
 						}
 					}	
-					if(pocimas[i].tipo == 2){
+					if((pocimas[i].tipo == 2)&&(pocimas[i] != null)){
 						for (int j = 0; j <= kyojines.length-1; j++) {
 							if (kyojines[j]!=null) {
 								kyojines[j]=null;
@@ -242,7 +261,7 @@ public class Juego extends InterfaceJuego
 							}	
 					}		
 					}		
-					if(pocimas[i].tipo == 3){
+					if((pocimas[i].tipo == 3)&&(pocimas[i] != null)){
 						mikasa.convertida = true;
 						pocimas[i] = null;
 							break;
