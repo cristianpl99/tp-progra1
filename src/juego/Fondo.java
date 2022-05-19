@@ -25,7 +25,10 @@ public class Fondo
 		game_over = Herramientas.cargarImagen("game_over.jpg");
 	}
 	public void dibujarse(Entorno entorno)
-	{ 	
+	{ 	//fondo de inicio
+		if (this.fase == 1){
+			entorno.dibujarImagen(principal, this.x, this.y, this.angulo, 1);
+		}	
 		//fondo durante el juego
 		if (this.fase == 2){
 			entorno.dibujarImagen(principal, this.x, this.y, this.angulo, 1);

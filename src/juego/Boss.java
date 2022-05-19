@@ -62,27 +62,5 @@ public class Boss {
 	public void cambiarTrayectoria() {
 		angulo += Math.PI/3;
 	}
-	
-	
-
-	public double getX() {
-		return x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public double getVelocidad() {
-		return velocidad;
-	}
-
-	public double getAngulo() {
-		return angulo;
-	}
-
-	public int getRadio() {
-		return radio;
-	}
 
 }

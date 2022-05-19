@@ -14,6 +14,7 @@ public class Juego extends InterfaceJuego
 	Proyectil proyectil;
 	Fondo fondo;
 	Boss boss;
+	Obstaculo [] entradas;
 //arrays de objetos
 	Kyojin [] kyojines;
 	Obstaculo [] obstaculos;
@@ -34,18 +35,24 @@ public class Juego extends InterfaceJuego
 	{
 		// Inicializa el objeto entorno, pero aun no lo inicia.
 		entorno = new Entorno(this, "Attack on Titan", 800, 600);
-		mikasa = new Mikasa(400, 300);
+		mikasa = new Mikasa(400, 500);
 		fondo = new Fondo(0,0, 2);
+		entradas = new Obstaculo [3];
+			entradas [0] = new Obstaculo (150, 300);
+			entradas [1] = new Obstaculo (400, 150);
+			entradas [2] = new Obstaculo (650 , 300);
 		obstaculos = new Obstaculo [4];
 			obstaculos [0] = new Obstaculo (200, 400);
 			obstaculos [1] = new Obstaculo (600, 400);
 			obstaculos [2] = new Obstaculo (200, 200);
 			obstaculos [3] = new Obstaculo (600, 200);
-		kyojines = new Kyojin [4];	
+		/*
+			kyojines = new Kyojin [4];	
 			kyojines[0] = new Kyojin(50, 50, 0.4, Math.PI/4, 30);
 			kyojines[1] = new Kyojin(50, 550, 0.4, Math.PI/4, 30);
 			kyojines[2] = new Kyojin(550, 50, 0.4, Math.PI/4, 30);
-			kyojines[3] = new Kyojin(550, 550, 0.4, Math.PI/4, 30);	
+			kyojines[3] = new Kyojin(550, 550, 0.4, Math.PI/4, 30);
+			*/	
 		// array de obstaculos con la imagen del crater (tope tentativo de 10)
 		crater = new Obstaculo [10];
 		//array de pocimas con distintos efectos
@@ -62,7 +69,7 @@ public class Juego extends InterfaceJuego
 		 */
 		entorno.iniciar();	
 		//inicia la musica del juego
-		//Herramientas.play("soundtrack.wav");	
+		Herramientas.play("soundtrack.wav");	
 	}
 	/*
 	 * Durante el juego, el método tick() será ejecutado en cada instante y 
@@ -72,30 +79,66 @@ public class Juego extends InterfaceJuego
 	 */
 	
 	public void tick(){
-		//pantalla de inicio con seleccion de niveles
-		/*
-		while (nivel == false){
-			fondo.dibujarse(entorno);
-			mikasa.teclaRight(entorno); 
- 			mikasa.teclaLeft(entorno); 
-  			mikasa.teclaUp(entorno); 
-  			mikasa.teclaDown(entorno);
-			mikasa.dibujarse(entorno);
-			if (entorno.sePresiono(entorno.TECLA_ENTER)) {
-				nivel = true;
+	
+	if(nivel==false) {	
+		fondo.fase = 1;
+		fondo.dibujarse(entorno);	//----------------------poner imagen cheta!! ---//
+		entorno.cambiarFont("Arial", 45, Color.yellow);
+		entorno.escribirTexto("WELCOME TO KARANES DISTRICT", 20, 70);
+		//niveles como el Doom
+		entorno.cambiarFont("Arial", 30, Color.red);
+		entorno.escribirTexto("I'm Too Young to Die", 20, 420);
+		entorno.escribirTexto("Ultra-Violence", 320, 270);
+		entorno.escribirTexto("Nightmare", 590, 420);
+		
+		for (int i = 0; i<= entradas.length -1; i++){
+			entradas[i].dibujarEntrada(entorno);
 		}
+		mikasa.teclaRight(entorno); 
+ 		mikasa.teclaLeft(entorno); 
+  		mikasa.teclaUp(entorno); 
+  		mikasa.teclaDown(entorno);
+		mikasa.dibujarse(entorno);
+		
+		//nivel facil
+		if ((mikasa.x >= 120 && mikasa.x<= 180) && (mikasa.y >=280 && mikasa.y <=350)){
+			kyojines = new Kyojin [4];	
+			kyojines[0] = new Kyojin(50, 50, 1, Math.PI/4, 30);
+			kyojines[1] = new Kyojin(50, 550, 1, Math.PI/4, 30);
+			kyojines[2] = new Kyojin(550, 50, 1, Math.PI/4, 30);
+			kyojines[3] = new Kyojin(550, 550, 1, Math.PI/4, 30);
+			
+		    nivel=true;
+		}
+		//nivel medio
+		if ((mikasa.x >= 270 && mikasa.x<= 430) && (mikasa.y >=140 && mikasa.y <=170)){
+			kyojines = new Kyojin [4];	
+			kyojines[0] = new Kyojin(50, 50, 1.5, Math.PI/4, 30);
+			kyojines[1] = new Kyojin(50, 550, 1.5, Math.PI/4, 30);
+			kyojines[2] = new Kyojin(550, 50, 1.5, Math.PI/4, 30);
+			kyojines[3] = new Kyojin(550, 550, 1.5, Math.PI/4, 30);
+		    nivel=true;
+		}
+		//nivel dificil
+		if ((mikasa.x >= 620 && mikasa.x<= 680) && (mikasa.y >=280 && mikasa.y <=350)){
+			kyojines = new Kyojin [5];	
+			kyojines[0] = new Kyojin(50, 50, 2.2, Math.PI/4, 30);
+			kyojines[1] = new Kyojin(50, 550, 2.2, Math.PI/4, 30);
+			kyojines[2] = new Kyojin(550, 50, 2.2, Math.PI/4, 30);
+			kyojines[3] = new Kyojin(550, 550, 2.2, Math.PI/4, 30);
+			kyojines[4] = new Kyojin(660, 490, 2.2, Math.PI/4, 30);
+     		nivel=true;
+		}
+		
+	
 	}
-	*/
-
-
-
+	else {
+		fondo.fase = 2;
 		//dibuja el fondo
 		fondo.dibujarse(entorno);
-		
 		//setea el tiempo
 		tiempo -= 1;
 		segundos = tiempo / 100;		          
-		
 		//si mata a los kyojines en pantalla, gana el juego
 	if((fin == true)&& (mikasa != null)){
 			entorno.cambiarFont("Arial", 70, Color.yellow);
@@ -120,7 +163,13 @@ public class Juego extends InterfaceJuego
 		mikasa.teclaRight(entorno); 
  		mikasa.teclaLeft(entorno); 
   		mikasa.teclaUp(entorno); 
-  		mikasa.teclaDown(entorno);	
+  		mikasa.teclaDown(entorno);
+		//mikasa evita los obstaculos
+		  for (int j = 0; j <= obstaculos.length-1; j++) { 
+			if ((mikasa.x >= obstaculos[j].x - 35) && (mikasa.x <= obstaculos[j].x + 35) && (mikasa.y >= obstaculos[j].y - 35) && (mikasa.y <= obstaculos[j].y + 35) ){  
+			mikasa.cambiarTrayectoria(); 
+			} 
+		   }
 	
 		// proyectil
 		if (entorno.sePresiono(entorno.TECLA_ESPACIO)&& proyectil == null){
@@ -187,7 +236,8 @@ public class Juego extends InterfaceJuego
 								pocimas[i] = null;
 								break;
 							}
-						}				
+						}
+					}	
 					if(pocimas[i].tipo == 2){
 						for (int j = 0; j <= kyojines.length-1; j++) {
 							if (kyojines[j]!=null) {
@@ -201,11 +251,11 @@ public class Juego extends InterfaceJuego
 						mikasa.convertida = true;
 						pocimas[i] = null;
 							break;
-							}				
+						}				
 				}
 				}
 			}	
-		}
+		
 		if (mikasa != null){
 			mikasa.dibujarse(entorno);
 		}
@@ -279,7 +329,7 @@ public class Juego extends InterfaceJuego
 				//MALISIMO el codigo, mejorar
 				if ((boss == null)&&(kyojines[0] == null)&&(kyojines[1] == null)&&(kyojines[2] == null)&&(kyojines[3] == null)){
 				//si mueren todos los kyojines, pone en juego al jefe final
-				boss = new Boss(1, 1, 01, Math.PI/4, 30, 3);
+				boss = new Boss(1, 1, 2, Math.PI/4, 30, 3);
 			}
 		}
 		
@@ -364,7 +414,8 @@ public class Juego extends InterfaceJuego
 		
 	}	
 	}
-}
+	}
+	}
 	
 
 	@SuppressWarnings("unused")

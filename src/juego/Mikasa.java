@@ -107,5 +107,10 @@ public class Mikasa
 		 this.girar(Herramientas.radianes(-1)); 
 	   
 	   }
+	   public void cambiarTrayectoria() { 
+		//angulo += Math.PI/60; 
+		this.x=this.x-5; 
+		this.y=this.y-5; 
+	   }
 	
 }
