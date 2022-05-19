@@ -46,13 +46,6 @@ public class Juego extends InterfaceJuego
 			obstaculos [1] = new Obstaculo (600, 400);
 			obstaculos [2] = new Obstaculo (200, 200);
 			obstaculos [3] = new Obstaculo (600, 200);
-		/*
-			kyojines = new Kyojin [4];	
-			kyojines[0] = new Kyojin(50, 50, 0.4, Math.PI/4, 30);
-			kyojines[1] = new Kyojin(50, 550, 0.4, Math.PI/4, 30);
-			kyojines[2] = new Kyojin(550, 50, 0.4, Math.PI/4, 30);
-			kyojines[3] = new Kyojin(550, 550, 0.4, Math.PI/4, 30);
-			*/	
 		// array de obstaculos con la imagen del crater (tope tentativo de 10)
 		crater = new Obstaculo [10];
 		//array de pocimas con distintos efectos
@@ -82,7 +75,7 @@ public class Juego extends InterfaceJuego
 	
 	if(nivel==false) {	
 		fondo.fase = 1;
-		fondo.dibujarse(entorno);	//----------------------poner imagen cheta!! ---//
+		fondo.dibujarse(entorno);
 		entorno.cambiarFont("Arial", 45, Color.yellow);
 		entorno.escribirTexto("WELCOME TO KARANES DISTRICT", 20, 70);
 		//niveles como el Doom
@@ -90,7 +83,7 @@ public class Juego extends InterfaceJuego
 		entorno.escribirTexto("I'm Too Young to Die", 20, 420);
 		entorno.escribirTexto("Ultra-Violence", 320, 270);
 		entorno.escribirTexto("Nightmare", 590, 420);
-		
+		//dibuja las tres entradas a los niveles del juego
 		for (int i = 0; i<= entradas.length -1; i++){
 			entradas[i].dibujarEntrada(entorno);
 		}
@@ -117,7 +110,8 @@ public class Juego extends InterfaceJuego
 			kyojines[1] = new Kyojin(50, 550, 1.5, Math.PI/4, 30);
 			kyojines[2] = new Kyojin(550, 50, 1.5, Math.PI/4, 30);
 			kyojines[3] = new Kyojin(550, 550, 1.5, Math.PI/4, 30);
-		    nivel=true;
+		    
+			nivel=true;
 		}
 		//nivel dificil
 		if ((mikasa.x >= 620 && mikasa.x<= 680) && (mikasa.y >=280 && mikasa.y <=350)){
@@ -127,7 +121,8 @@ public class Juego extends InterfaceJuego
 			kyojines[2] = new Kyojin(550, 50, 2.2, Math.PI/4, 30);
 			kyojines[3] = new Kyojin(550, 550, 2.2, Math.PI/4, 30);
 			kyojines[4] = new Kyojin(660, 490, 2.2, Math.PI/4, 30);
-     		nivel=true;
+     		
+			nivel=true;
 		}
 		
 	
@@ -211,7 +206,7 @@ public class Juego extends InterfaceJuego
 		if (tiempo  == 4500 || tiempo == 3000 || tiempo == 1500){
 			pocimas[2] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 3);
 		}
-		
+		//dibuja las pocimas existentes
 		for (int i = 0; i <= pocimas.length-1; i++) {
 		if (pocimas[i]!=null) {
 			pocimas[i].dibujarPocima(entorno);
@@ -274,8 +269,7 @@ public class Juego extends InterfaceJuego
 					kyojines[i].cambiarTrayectoria();
 			}
 		}		
-		for (int i = 0; i <= kyojines.length-1; i++) {
-			
+		for (int i = 0; i <= kyojines.length-1; i++) {		
 			//si el proyectil choca con un kyojin, lo mata
 			if (proyectil !=null){
 				if (kyojines[i]!=null) {
@@ -306,8 +300,7 @@ public class Juego extends InterfaceJuego
 					kyojines[i].cambiarTrayectoria();}
 			}
 		}
-	}
-		
+	}	
 		//cada diez segundos hace respawn de kyojines si hay menos de 4
 		//y no esta el jefe en juego
 		if ((tiempo % 720 == 0)&&(boss ==null)) {
@@ -318,8 +311,7 @@ public class Juego extends InterfaceJuego
 				break;
 			}
 		}	
-		}
-		
+		}	
 		//chequea si quedan kyojines
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if ((kyojines[i]!=null)&& boss ==null) {
@@ -331,8 +323,7 @@ public class Juego extends InterfaceJuego
 				//si mueren todos los kyojines, pone en juego al jefe final
 				boss = new Boss(1, 1, 2, Math.PI/4, 30, 3);
 			}
-		}
-		
+		}	
 		// si chocan con mykasa, mykasa muere. si mikasa esta convertida, el kyojin muere
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
@@ -381,26 +372,18 @@ public class Juego extends InterfaceJuego
 				boss = null;
 				fin = true;
 			}		
-			}
-		
-
-		
-		//si quedan vidas, las dibuja. si no quedan pone null a mikasa
-		
+			}	
+		//si quedan vidas, las dibuja. si no quedan pone null a mikasa	
 		for (int i = 0; i <= vidas.length-1; i++) {
 			if (vidas[i]!=null) {
 				vidas[i].dibujarse(entorno);
 				}
-			}
-		
+			}	
 		// si no quedan vidas, pone a mikasa en null
-
 			if (cont_vidas==0){
 				mikasa = null;
 				fin = true;
-			} 
-			
-				
+			} 		
 		//si quedan menos de 15 segundos, cambia el color del timer
 		if (segundos >= 15){
 			entorno.cambiarFont("Arial", 30, Color.white);	
