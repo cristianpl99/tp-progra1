@@ -13,7 +13,9 @@ public class Kyojin {
 	public double velocidad;
 	public double angulo;
 	public int radio;
+	boolean congelado;
 	Image img3;
+	Image freeze;
 	
 	public Kyojin(double x, double y, double velocidad, double angulo, int radio) {
 		this.x = x;
@@ -21,11 +23,19 @@ public class Kyojin {
 		this.velocidad = velocidad;
 		this.angulo = angulo;
 		this.radio = radio;
+		congelado = false;
 		img3 = Herramientas.cargarImagen("kyojin.png");
+		freeze = Herramientas.cargarImagen("kyojinfrio.png");
 	}
 	
 	public void dibujarse(Entorno e) {
+		if(this.congelado == false){
 		e.dibujarImagen(img3, this.x, this.y, 0.3, 0.2);
+		};
+		if(this.congelado == true){
+		e.dibujarImagen(freeze, this.x, this.y, 0.3, 0.2);
+		};
+
 	}
 	public void cambiarAngulo(double x2, double y2){
 		this.angulo = Math.atan2(y2 - this.y, x2 - this.x);

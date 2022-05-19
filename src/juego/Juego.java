@@ -87,8 +87,7 @@ public class Juego extends InterfaceJuego
  		mikasa.teclaLeft(entorno); 
   		mikasa.teclaUp(entorno); 
   		mikasa.teclaDown(entorno);
-		mikasa.dibujarse(entorno);
-		
+		mikasa.dibujarse(entorno);		
 		//nivel facil
 		if ((mikasa.x >= 120 && mikasa.x<= 180) && (mikasa.y >=280 && mikasa.y <=350)){
 			kyojines = new Kyojin [4];	
@@ -122,8 +121,7 @@ public class Juego extends InterfaceJuego
 			vidas[1]= new Vidas (550, 550);
 			vidas[2]= new Vidas (600, 550);
 			vidas[3]= new Vidas (650, 550);
-			
-			
+
 			cont_vidas = vidas.length;
 			nivel=true;
 		}
@@ -167,12 +165,10 @@ public class Juego extends InterfaceJuego
 		entorno.cambiarFont("Arial", 70, Color.yellow);
 		entorno.escribirTexto("GAME OVER", 210, 280);
 		fin = true;
-	}
-	
+	}	
 		//si se dan las condiciones, el juego sigue
 	if ((mikasa !=null)&&(segundos > 0)&&(fin == false)){
-		{
-			
+		{		
 		//mueve a mikasa
 		mikasa.teclaRight(entorno); 
  		mikasa.teclaLeft(entorno); 
@@ -184,20 +180,17 @@ public class Juego extends InterfaceJuego
 			mikasa.cambiarTrayectoria(); 
 			} 
 		   }
-	
 		// proyectil
 		if (entorno.sePresiono(entorno.TECLA_ESPACIO)&& proyectil == null){
 			double direccion;
 			direccion =  mikasa.angulo;
 			proyectil = new Proyectil(mikasa.x, mikasa.y, 5, direccion, 1, true);
 			Herramientas.play("misil.wav");
-			}		
-		
+			}				
 		//si sale del limite de la pantalla, lo pone en null
 		if((proyectil != null) &&(proyectil.chocasteCon(entorno)== true)) {
 				proyectil = null;
-			}
-					
+			}					
 		//dibuja obstaculos de a uno a uno
 		for (int i = 0; i <= obstaculos.length-1; i++) {
 			if (i%2==0) {
@@ -247,6 +240,7 @@ public class Juego extends InterfaceJuego
 						for (int j = 0; j <= kyojines.length-1; j++) {
 							if (kyojines[j]!=null) {
 								kyojines[j].velocidad = 0.1;
+								kyojines[j].congelado = true;
 								pocimas[i] = null;
 								break;
 							}
@@ -264,16 +258,14 @@ public class Juego extends InterfaceJuego
 					if((pocimas[i].tipo == 3)&&(pocimas[i] != null)){
 						mikasa.convertida = true;
 						pocimas[i] = null;
-							break;
+						break;
 						}				
 				}
 				}
-			}	
-		
+			}			
 		if (mikasa != null){
 			mikasa.dibujarse(entorno);
 		}
-		//
 		//dibuja los kyojines
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
@@ -357,7 +349,6 @@ public class Juego extends InterfaceJuego
 								mikasa.y = (int) (Math.random() * 600 + 1);
 							}
 						}
-				}
 					if ((mikasa != null) && (mikasa.convertida == true)){
 							kyojines[i] = null;
 							mikasa.convertida= false;
@@ -366,7 +357,7 @@ public class Juego extends InterfaceJuego
 				}
 			}
 			}
-
+		}
 		//jefe final
 		if (boss!=null){
 			boss.cambiarAngulo(mikasa.x, mikasa.y);
