@@ -106,13 +106,23 @@ public class Mikasa
 		 this.girar(Herramientas.radianes(-1)); 
 	   
 	   }
-	   public void cambiarTrayectoria() { 
-		//angulo += Math.PI/60; 
-		this.x=this.x-5; 
+	   public void cambiarTrayectoria(double x, double y) { 
+		//angulo += Math.PI/60;
+		if (this.y> y) {
 		this.y=this.y-5; 
+		}
+		if (this.y< y) {
+			this.y=this.y+5; 
+			}
+		if (this.x> x) {
+			this.x=this.x+5; 
+		}
+		if (this.x< x) {
+			this.x=this.x-5; 
+		}
 	   }
 	   public boolean chocasteCon(double x, double y){
-		if ((this.x >= x - 40) && (this.x <= x + 40) && (this.y >= y - 40) && (this.y <= y + 40) ){
+		if ((this.x >= x - 40) && (this.x <= x + 40) && (this.y >= y - 80) && (this.y <= y + 80) ){
 			return true;  
 	   }
 	   else{

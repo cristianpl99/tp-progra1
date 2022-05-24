@@ -20,7 +20,7 @@ public class Juego extends InterfaceJuego
 	Pocima[] pocimas;
 	Vidas[] vidas;
 	Fireball[] fireball;
-	//inicializar el tiempo en 3600 ticks / 60 segundos
+	//inicializar el tiempo en 6000 ticks / 60 segundos
 	int tiempo = 6000;
 	int segundos = 0;
 	int kills = 0;
@@ -55,7 +55,8 @@ public class Juego extends InterfaceJuego
 		 */
 		entorno.iniciar();	
 		//inicia la musica del juego
-		Herramientas.play("soundtrack.wav");	
+		Herramientas.play("soundtrack.wav");
+		//Herramientas.cargarSonido("soundtrack.wav").stop();	
 	}
 	/*
 	 * Durante el juego, el método tick() será ejecutado en cada instante y 
@@ -173,9 +174,11 @@ public class Juego extends InterfaceJuego
 		  for (int j = 0; j <= obstaculos.length-1; j++) { 
 			//if ((mikasa.x >= obstaculos[j].x - 35) && (mikasa.x <= obstaculos[j].x + 35) && (mikasa.y >= obstaculos[j].y - 35) && (mikasa.y <= obstaculos[j].y + 35) ){  
 			//le paso las coordenadas de los obstaculos
+			if (mikasa !=null){
 				if (mikasa.chocasteCon(obstaculos[j].x, obstaculos[j].y) == true){
-					mikasa.cambiarTrayectoria(); 
+					mikasa.cambiarTrayectoria(obstaculos[j].x,obstaculos[j].y);
 			} 
+		}
 		   }
 		// proyectil
 		if (entorno.sePresiono(entorno.TECLA_ESPACIO)&& proyectil == null){
@@ -314,8 +317,9 @@ public class Juego extends InterfaceJuego
 			for (int j = 0; j <= obstaculos.length-1; j++) {
 			if (kyojines[i]!=null) {	
 				if ((kyojines[i].x >= obstaculos[j].x - 35) && (kyojines[i].x <= obstaculos[j].x + 35) && (kyojines[i].y >= obstaculos[j].y - 35) && (kyojines[i].y <= obstaculos[j].y + 35) ){ 
-					kyojines[i].cambiarTrayectoria();}
+					kyojines[i].cambiarTrayectoria();
 			}
+		}
 		}
 	}	
 		//cada diez segundos hace respawn de kyojines si hay menos de 4
