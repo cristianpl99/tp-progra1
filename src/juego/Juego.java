@@ -21,6 +21,7 @@ public class Juego extends InterfaceJuego
 	Obstaculo [] crater;
 	Pocima[] pocimas;
 	Vidas[] vidas;
+	Fireball[] fireball;
 	
 
 	//inicializar el tiempo en 3600 ticks / 60 segundos
@@ -50,6 +51,8 @@ public class Juego extends InterfaceJuego
 		crater = new Obstaculo [10];
 		//array de pocimas con distintos efectos
 		pocimas = new Pocima [4];
+		//array de fireball del boss final
+		fireball = new Fireball [3];
 		
 
 		/* 
@@ -207,15 +210,15 @@ public class Juego extends InterfaceJuego
 				}
 			}
 		//cada cinco segundos pone una pocima de lentitud en el juego
-		if (tiempo == 5400 || tiempo == 4800 || tiempo == 4200 || tiempo == 3600 || tiempo == 3000 || tiempo == 2400 || tiempo == 1800 || tiempo == 1200 || tiempo == 600){
+		if (tiempo %600 == 0){
 			pocimas[0] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 1);
 		}
 		//cada diez segundos pone una pocima mata kyojin en juego
-		if (tiempo  == 5000 || tiempo == 4000 || tiempo == 3000 || tiempo == 2000 || tiempo == 1000){
+		if (tiempo  %1000 == 0){
 			pocimas[1] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 2);
 		}
 		//cada quince segundos pone una suero convertidor (?) en juego
-		if (tiempo  == 4500 || tiempo == 3000 || tiempo == 1500){
+		if (tiempo %1500 == 0){
 			pocimas[2] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 3);
 		}
 		//dibuja las pocimas existentes
@@ -245,8 +248,9 @@ public class Juego extends InterfaceJuego
 								break;
 							}
 						}
-					}	
-					if((pocimas[i].tipo == 2)&&(pocimas[i] != null)){
+					}
+					if(pocimas[i]!= null){	
+					if(pocimas[i].tipo == 2){
 						for (int j = 0; j <= kyojines.length-1; j++) {
 							if (kyojines[j]!=null) {
 								kyojines[j]=null;
@@ -254,12 +258,15 @@ public class Juego extends InterfaceJuego
 								break;
 							}	
 					}		
-					}		
-					if((pocimas[i].tipo == 3)&&(pocimas[i] != null)){
+					}
+					}
+					if(pocimas[i]!= null){	
+					if(pocimas[i].tipo == 3){
 						mikasa.convertida = true;
 						pocimas[i] = null;
 						break;
-						}				
+						}
+					}				
 				}
 				}
 			}			
@@ -381,8 +388,38 @@ public class Juego extends InterfaceJuego
 			if(boss.vidas == 0){
 				boss = null;
 				fin = true;
-			}		
-			}	
+			}
+			//cada cinco segundos el boss tira una bola de fuero
+			if ((tiempo % 600 == 0)&& (boss != null)){
+				for (int i = 0; i <= fireball.length-1; i++) {
+					if (fireball[i]==null) {
+						fireball[i] = new Fireball(boss.x, boss.y, 1, Math.PI/4, 30);	
+						break;
+					}
+				}
+			}
+			//dibuja las bolas de fuego
+			for (int i = 0; i <= fireball.length-1; i++) {
+				if (fireball[i]!=null) {
+						fireball[i].dibujar(entorno);
+			}
+		}
+
+			//mueve las bolas de fuego
+			for (int i = 0; i <= fireball.length-1; i++) {
+				if (fireball[i]!=null) {
+						fireball[i].mover();
+			}
+		}
+			//si es necesario las hace rebotar con el limite de la pantalla
+			for (int i = 0; i <= fireball.length-1; i++) {
+				if (fireball[i]!=null) {
+						if (fireball[i].chocasteCon(entorno)) 
+							fireball[i].cambiarTrayectoria();
+					break;
+			}
+		}
+		}	
 		//si quedan vidas, las dibuja. si no quedan pone null a mikasa	
 		for (int i = 0; i <= vidas.length-1; i++) {
 			if (vidas[i]!=null) {
