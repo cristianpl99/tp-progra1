@@ -1,8 +1,6 @@
 package juego;
 import java.awt.Color;
-
 import javax.sound.midi.Soundbank;
-
 import entorno.*;
 
 public class Juego extends InterfaceJuego
@@ -22,8 +20,6 @@ public class Juego extends InterfaceJuego
 	Pocima[] pocimas;
 	Vidas[] vidas;
 	Fireball[] fireball;
-	
-
 	//inicializar el tiempo en 3600 ticks / 60 segundos
 	int tiempo = 6000;
 	int segundos = 0;
@@ -53,8 +49,6 @@ public class Juego extends InterfaceJuego
 		pocimas = new Pocima [4];
 		//array de fireball del boss final
 		fireball = new Fireball [3];
-		
-
 		/* 
 		 * Es fundamental que recién al final del constructor de la clase Juego se 
 		 * inicie el objeto entorno de la siguiente manera.
@@ -105,9 +99,8 @@ public class Juego extends InterfaceJuego
 			vidas[2]= new Vidas (600, 550);
 			vidas[3]= new Vidas (650, 550);
 			vidas[4]= new Vidas (700, 550);
-			
+			//contador de vidas igual a longitud del array
 			cont_vidas = vidas.length;
-
 		    nivel=true;
 		}
 		//nivel medio
@@ -116,15 +109,14 @@ public class Juego extends InterfaceJuego
 			kyojines[0] = new Kyojin(50, 50, 1.5, Math.PI/4, 30);
 			kyojines[1] = new Kyojin(50, 550, 1.5, Math.PI/4, 30);
 			kyojines[2] = new Kyojin(550, 50, 1.5, Math.PI/4, 30);
-			kyojines[3] = new Kyojin(550, 550, 1.5, Math.PI/4, 30);
-		    
+			kyojines[3] = new Kyojin(550, 550, 1.5, Math.PI/4, 30);		    
 			//mejorar con un for
 			vidas = new Vidas [4];
 			vidas[0]= new Vidas (500, 550);
 			vidas[1]= new Vidas (550, 550);
 			vidas[2]= new Vidas (600, 550);
 			vidas[3]= new Vidas (650, 550);
-
+			//contador de vidas igual a longitud del array
 			cont_vidas = vidas.length;
 			nivel=true;
 		}
@@ -141,11 +133,10 @@ public class Juego extends InterfaceJuego
 			vidas[0]= new Vidas (550, 550);
 			vidas[1]= new Vidas (650, 550);
 			vidas[2]= new Vidas (750, 550);
+			//contador de vidas igual a longitud del array
 			cont_vidas = vidas.length;
 			nivel=true;
 		}
-		
-	
 	}
 	else {
 		fondo.fase = 2;
@@ -178,9 +169,12 @@ public class Juego extends InterfaceJuego
   		mikasa.teclaUp(entorno); 
   		mikasa.teclaDown(entorno);
 		//mikasa evita los obstaculos
+		//hacer metodo!!
 		  for (int j = 0; j <= obstaculos.length-1; j++) { 
-			if ((mikasa.x >= obstaculos[j].x - 35) && (mikasa.x <= obstaculos[j].x + 35) && (mikasa.y >= obstaculos[j].y - 35) && (mikasa.y <= obstaculos[j].y + 35) ){  
-			mikasa.cambiarTrayectoria(); 
+			//if ((mikasa.x >= obstaculos[j].x - 35) && (mikasa.x <= obstaculos[j].x + 35) && (mikasa.y >= obstaculos[j].y - 35) && (mikasa.y <= obstaculos[j].y + 35) ){  
+			//le paso las coordenadas de los obstaculos
+				if (mikasa.chocasteCon(obstaculos[j].x, obstaculos[j].y) == true){
+					mikasa.cambiarTrayectoria(); 
 			} 
 		   }
 		// proyectil
@@ -209,6 +203,8 @@ public class Juego extends InterfaceJuego
 					crater[i].dibujarCrater(entorno);
 				}
 			}
+		//si el boss no esta en juego, pone pocimas
+		if (boss == null){
 		//cada cinco segundos pone una pocima de lentitud en el juego
 		if (tiempo %600 == 0){
 			pocimas[0] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 1);
@@ -227,6 +223,7 @@ public class Juego extends InterfaceJuego
 			pocimas[i].dibujarPocima(entorno);
 			}
 		}
+	}
 		//dibuja el proyectil por encima de todo
 		if (proyectil != null){  
 			proyectil.dibujar(entorno);
@@ -236,16 +233,17 @@ public class Juego extends InterfaceJuego
 		//tipo 1 = baja la velocidad de los kyojines en juego
 		//tipo 2 = mata a un kyojin al azar 
 		//tipo 3 = suero convertidor
+		//hacer metodo!!
 		for (int i = 0; i <= pocimas.length-1; i++) {
 			if (pocimas[i]!=null) {
-				if ((mikasa.x >= pocimas[i].x - 15) && (mikasa.x <= pocimas[i].x + 15) && (mikasa.y >= pocimas[i].y - 15) && (mikasa.y <= pocimas[i].y + 15) ) {
+				//if ((mikasa.x >= pocimas[i].x - 15) && (mikasa.x <= pocimas[i].x + 15) && (mikasa.y >= pocimas[i].y - 15) && (mikasa.y <= pocimas[i].y + 15) ) {
+					if (mikasa.chocasteCon(pocimas[i].x, pocimas[i].y)== true){
 					if (pocimas[i].tipo == 1){
 						for (int j = 0; j <= kyojines.length-1; j++) {
 							if (kyojines[j]!=null) {
 								kyojines[j].velocidad = 0.1;
 								kyojines[j].congelado = true;
 								pocimas[i] = null;
-								break;
 							}
 						}
 					}
@@ -311,6 +309,7 @@ public class Juego extends InterfaceJuego
 			}
 		}
 		//si chocan con un obstaculo cambian de trayectoria
+		//hacer metodo!!
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			for (int j = 0; j <= obstaculos.length-1; j++) {
 			if (kyojines[i]!=null) {	
@@ -339,13 +338,15 @@ public class Juego extends InterfaceJuego
 				//MALISIMO el codigo, mejorar
 				if ((boss == null)&&(kyojines[0] == null)&&(kyojines[1] == null)&&(kyojines[2] == null)&&(kyojines[3] == null)){
 				//si mueren todos los kyojines, pone en juego al jefe final
-				boss = new Boss(1, 1, 1, Math.PI/4, 30, 3);
+				boss = new Boss(15, 15, 0.3, Math.PI/4, 30, 3);
 			}
 		}	
 		// si chocan con mykasa, mykasa muere. si mikasa esta convertida, el kyojin muere
+		//hacer metodo!!
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
-				if ((kyojines[i].x >= mikasa.x - 60) && (kyojines[i].x <= mikasa.x + 60) && (kyojines[i].y >= mikasa.y - 60) && (kyojines[i].y <= mikasa.y + 60)){ 
+				//if ((kyojines[i].x >= mikasa.x - 60) && (kyojines[i].x <= mikasa.x + 60) && (kyojines[i].y >= mikasa.y - 60) && (kyojines[i].y <= mikasa.y + 60)){ 
+					if (mikasa.chocasteCon(kyojines[i].x, kyojines[i].y) == true){
 					if ((mikasa != null) && (mikasa.convertida == false)){
 							//baja las vidas
 							if (vidas[cont_vidas-1]!=null){
@@ -373,10 +374,13 @@ public class Juego extends InterfaceJuego
 			if(boss.chocasteCon(entorno)){
 				boss.cambiarTrayectoria();
 			}
-			if ((boss.x >= mikasa.x - 60) && (boss.x <= mikasa.x + 60) && (boss.y >= mikasa.y - 60) && (boss.y <= mikasa.y + 60)){
+			//hacer metodo!!
+			//if ((boss.x >= mikasa.x - 60) && (boss.x <= mikasa.x + 60) && (boss.y >= mikasa.y - 60) && (boss.y <= mikasa.y + 60)){
+				if (mikasa.chocasteCon(boss.x, boss.y) == true){
 				mikasa = null;
 				fin=true;
 			}
+			//hacer metodo!!
 			if (proyectil !=null){
 				if ((boss.x >= proyectil.x - 40) && (boss.x <= proyectil.x + 40) && (boss.y >= proyectil.y - 40) && (boss.y <= proyectil.y + 40) ){ 
 				proyectil = null;
@@ -417,7 +421,22 @@ public class Juego extends InterfaceJuego
 							fireball[i].cambiarTrayectoria();
 			}
 		}
+		//si una bola de fuego choca a mikasa, le baja una vida y hace un respawn random
+		for (int i = 0; i <= fireball.length-1; i++) {
+			if (fireball[i]!=null) {
+					if (mikasa.chocasteCon(fireball[i].x, fireball[i].y)) {
+							//baja las vidas
+							if (vidas[cont_vidas-1]!=null){
+								vidas[cont_vidas-1]=null;
+								cont_vidas --;
+							//respawnwa a mikasa en un lugar random	
+								mikasa.x = (int) (Math.random() * 800 + 1);
+								mikasa.y = (int) (Math.random() * 600 + 1);
+							}
+				}
+				}
 		}	
+	}
 		//si quedan vidas, las dibuja. si no quedan pone null a mikasa	
 		for (int i = 0; i <= vidas.length-1; i++) {
 			if (vidas[i]!=null) {
@@ -428,7 +447,8 @@ public class Juego extends InterfaceJuego
 			if (cont_vidas==0){
 				mikasa = null;
 				fin = true;
-			} 		
+			} 
+				
 		//si quedan menos de 15 segundos, cambia el color del timer
 		if (segundos >= 15){
 			entorno.cambiarFont("Arial", 30, Color.white);	
@@ -442,8 +462,9 @@ public class Juego extends InterfaceJuego
 		
 	}	
 	}
+}
 	}
-	}
+	
 	
 
 	@SuppressWarnings("unused")

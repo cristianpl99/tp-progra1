@@ -76,8 +76,7 @@ public class Mikasa
 		  this.moverAdelante(); 
 		 } 
 		} 
-	   }  
-	   
+	   }  	   
 	   public void teclaDown (Entorno entorno) { 
 		if (entorno.estaPresionada(entorno.TECLA_ABAJO)) { 
 		 if (this.x <= 10){ 
@@ -112,5 +111,13 @@ public class Mikasa
 		this.x=this.x-5; 
 		this.y=this.y-5; 
 	   }
+	   public boolean chocasteCon(double x, double y){
+		if ((this.x >= x - 40) && (this.x <= x + 40) && (this.y >= y - 40) && (this.y <= y + 40) ){
+			return true;  
+	   }
+	   else{
+		   return false;
+	   }
+	}
 	
 }

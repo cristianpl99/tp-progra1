@@ -9,11 +9,11 @@ import entorno.Herramientas;
 
 public class Fireball {
 	
-	private double x;
-	private double y;
-	private double velocidad;
-	private double angulo;
-	private int radio;
+	public double x;
+    public double y;
+	public double velocidad;
+	public double angulo;
+	public int radio;
     Image fireball;
 	
 	public Fireball(double x, double y, double velocidad, double angulo, int radio) {
