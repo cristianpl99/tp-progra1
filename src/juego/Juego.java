@@ -339,7 +339,7 @@ public class Juego extends InterfaceJuego
 				//MALISIMO el codigo, mejorar
 				if ((boss == null)&&(kyojines[0] == null)&&(kyojines[1] == null)&&(kyojines[2] == null)&&(kyojines[3] == null)){
 				//si mueren todos los kyojines, pone en juego al jefe final
-				boss = new Boss(1, 1, 2, Math.PI/4, 30, 3);
+				boss = new Boss(1, 1, 1, Math.PI/4, 30, 3);
 			}
 		}	
 		// si chocan con mykasa, mykasa muere. si mikasa esta convertida, el kyojin muere
@@ -393,7 +393,7 @@ public class Juego extends InterfaceJuego
 			if ((tiempo % 600 == 0)&& (boss != null)){
 				for (int i = 0; i <= fireball.length-1; i++) {
 					if (fireball[i]==null) {
-						fireball[i] = new Fireball(boss.x, boss.y, 1, Math.PI/4, 30);	
+						fireball[i] = new Fireball(boss.x, boss.y, 2.5, Math.PI/4, 30);	
 						break;
 					}
 				}
@@ -404,7 +404,6 @@ public class Juego extends InterfaceJuego
 						fireball[i].dibujar(entorno);
 			}
 		}
-
 			//mueve las bolas de fuego
 			for (int i = 0; i <= fireball.length-1; i++) {
 				if (fireball[i]!=null) {
@@ -416,7 +415,6 @@ public class Juego extends InterfaceJuego
 				if (fireball[i]!=null) {
 						if (fireball[i].chocasteCon(entorno)) 
 							fireball[i].cambiarTrayectoria();
-					break;
 			}
 		}
 		}	
