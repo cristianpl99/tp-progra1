@@ -1,6 +1,6 @@
 package juego;
+
 import java.awt.Color;
-import javax.sound.midi.Soundbank;
 import entorno.*;
 
 public class Juego extends InterfaceJuego
@@ -27,6 +27,7 @@ public class Juego extends InterfaceJuego
 	boolean nivel = false;
 	int cont_vidas = 3;
 	boolean fin = false;
+	int pausa = 1;
 	
 	Juego()
 	{
@@ -34,6 +35,7 @@ public class Juego extends InterfaceJuego
 		entorno = new Entorno(this, "Attack on Titan", 800, 600);
 		mikasa = new Mikasa(400, 500);
 		fondo = new Fondo(0,0, 2);
+		//array de entradas y obstaculos que son comunes a los tres niveles del juego
 		entradas = new Obstaculo [3];
 			entradas [0] = new Obstaculo (150, 300);
 			entradas [1] = new Obstaculo (400, 150);
@@ -43,8 +45,8 @@ public class Juego extends InterfaceJuego
 			obstaculos [1] = new Obstaculo (600, 400);
 			obstaculos [2] = new Obstaculo (200, 200);
 			obstaculos [3] = new Obstaculo (600, 200);
-		// array de obstaculos con la imagen del crater (tope tentativo de 10)
-		crater = new Obstaculo [10];
+		// array de obstaculos con la imagen del crater (tope tentativo de 20)
+		crater = new Obstaculo [20];
 		//array de pocimas con distintos efectos
 		pocimas = new Pocima [4];
 		//array de fireball del boss final
@@ -471,9 +473,19 @@ public class Juego extends InterfaceJuego
 		entorno.cambiarFont("Arial", 25, Color.yellow);
 		entorno.escribirTexto("KILLS: " + kills, 500, 130);
 		
-	}	
-	}
-}
+		}	
+		}
+		}
+		if(entorno.sePresiono(entorno.TECLA_ENTER)){
+			pausa = pausa * -1;
+		}
+			while (pausa < 0){
+				if(entorno.sePresiono(entorno.TECLA_CTRL)){
+					pausa = pausa * -1;	
+				}
+				
+			}
+		
 	}
 	
 	
