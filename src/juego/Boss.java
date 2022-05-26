@@ -1,7 +1,6 @@
 package juego;
 
 import java.awt.Image;
-
 import entorno.Entorno;
 import entorno.Herramientas;
 
@@ -35,13 +34,14 @@ public class Boss {
 		this.x += Math.cos(this.angulo)*(this.velocidad);
 		this.y += Math.sin(this.angulo)*(this.velocidad);
 	}
-
+	/*No son necesarios porque Mikasa nunca sale de pantalla
 	public boolean chocasteCon(Entorno e) {
 		return x <= radio || y <= radio || x >= e.ancho() - radio || y >= e.alto() - radio;		
 	}	
 	public void cambiarTrayectoria() {
 		angulo += Math.PI/3;
 	}
+	*/
 
 
 

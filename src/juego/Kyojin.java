@@ -1,8 +1,6 @@
 package juego;
 
-import java.awt.Color;
 import java.awt.Image;
-
 import entorno.Entorno;
 import entorno.Herramientas;
 
@@ -61,36 +59,20 @@ public class Kyojin {
 		}
 		*/
 		
-	}
-	
+	}	
 	public boolean chocasteCon(Entorno e) {
 		return x <= radio || y <= radio || x >= e.ancho() - radio || y >= e.alto() - radio;		
 	}
+	public boolean chocasteConObstaculo(double x, double y){
+		if ((this.x >= x - 80) && (this.x <= x + 80) && (this.y >= y - 80) && (this.y <= y + 80) ){
+			return true;  
+	   }
+	   else{
+		   return false;
+	   }
+	}
 	
 	public void cambiarTrayectoria() {
-		angulo += Math.PI/3;
+		angulo += Math.PI/2;
 	}
-	
-	
-
-	public double getX() {
-		return x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public double getVelocidad() {
-		return velocidad;
-	}
-
-	public double getAngulo() {
-		return angulo;
-	}
-
-	public int getRadio() {
-		return radio;
-	}
-
 }

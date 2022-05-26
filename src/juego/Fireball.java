@@ -1,8 +1,6 @@
 package juego;
 
-import java.awt.Color;
 import java.awt.Image;
-
 import entorno.Entorno;
 import entorno.Herramientas;
 
@@ -33,8 +31,7 @@ public class Fireball {
 		y += velocidad * Math.sin(angulo);
 		x += velocidad * Math.cos(angulo);
 	}
-	
-	//FIXME
+
 	public boolean chocasteCon(Entorno e) {
 		return x <= radio || y <= radio || x >= e.ancho() - radio || y >= e.alto() - radio;		
 	}

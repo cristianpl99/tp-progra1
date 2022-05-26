@@ -1,8 +1,6 @@
 package juego;
 
-import java.awt.Color;
 import java.awt.Image;
-
 import entorno.Entorno;
 import entorno.Herramientas;
 
@@ -15,7 +13,6 @@ public class Mikasa
 	boolean convertida;
 	Image img1;
 	Image img2;
-	
 	
 	public Mikasa(int x, int y) 
 	{
@@ -106,7 +103,8 @@ public class Mikasa
 		 this.girar(Herramientas.radianes(-1)); 
 	   
 	   }
-	   public void cambiarTrayectoria(double x, double y) { 
+	   public void cambiarTrayectoria(double x, double y) {
+		
 		//angulo += Math.PI/60;
 		if (this.y> y) {
 		this.y=this.y-5; 
