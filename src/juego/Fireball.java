@@ -6,7 +6,7 @@ import entorno.Herramientas;
 
 
 public class Fireball {
-	
+	//Variables de instancia
 	public double x;
     public double y;
 	public double velocidad;

@@ -5,7 +5,7 @@ import entorno.Entorno;
 import entorno.Herramientas;
 
 public class Boss {
-	
+	//Variables de instancia
 	public double x;
 	public double y;
 	public double velocidad;

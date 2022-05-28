@@ -91,10 +91,10 @@ public class Juego extends InterfaceJuego
 		//nivel facil
 		if ((mikasa.x >= 120 && mikasa.x<= 180) && (mikasa.y >=280 && mikasa.y <=350)){
 			kyojines = new Kyojin [4];	
-			kyojines[0] = new Kyojin(50, 50, 1, Math.PI/4, 30);
-			kyojines[1] = new Kyojin(50, 550, 1, Math.PI/4, 30);
-			kyojines[2] = new Kyojin(550, 50, 1, Math.PI/4, 30);
-			kyojines[3] = new Kyojin(550, 550, 1, Math.PI/4, 30);
+			kyojines[0] = new Kyojin(50, 50, 0.7, Math.PI/4, 30);
+			kyojines[1] = new Kyojin(50, 550, 0.7, Math.PI/4, 30);
+			kyojines[2] = new Kyojin(550, 50, 0.7, Math.PI/4, 30);
+			kyojines[3] = new Kyojin(550, 550, 0.7, Math.PI/4, 30);
 			//mejorar con un for
 			vidas = new Vidas [5];
 			vidas[0]= new Vidas (500, 550);
@@ -105,6 +105,7 @@ public class Juego extends InterfaceJuego
 			//contador de vidas igual a longitud del array
 			cont_vidas = vidas.length;
 		    nivel=true;
+			mikasa.reset();
 		}
 		//nivel medio
 		if ((mikasa.x >= 270 && mikasa.x<= 430) && (mikasa.y >=140 && mikasa.y <=170)){
@@ -122,6 +123,7 @@ public class Juego extends InterfaceJuego
 			//contador de vidas igual a longitud del array
 			cont_vidas = vidas.length;
 			nivel=true;
+			mikasa.reset();
 		}
 		//nivel dificil
 		if ((mikasa.x >= 620 && mikasa.x<= 680) && (mikasa.y >=280 && mikasa.y <=350)){
@@ -139,6 +141,7 @@ public class Juego extends InterfaceJuego
 			//contador de vidas igual a longitud del array
 			cont_vidas = vidas.length;
 			nivel=true;
+			mikasa.reset();
 		}
 	}
 	else {
@@ -244,7 +247,9 @@ public class Juego extends InterfaceJuego
 				//forma anterior a idear y mejorar el codigo
 				//if ((mikasa.x >= pocimas[i].x - 15) && (mikasa.x <= pocimas[i].x + 15) && (mikasa.y >= pocimas[i].y - 15) && (mikasa.y <= pocimas[i].y + 15) ) {
 					if (mikasa.chocasteCon(pocimas[i].x, pocimas[i].y)== true){
-					if (pocimas[i].tipo == 1){
+					//reproduce sonido de pocima
+					Herramientas.play("potion_drink.wav");
+						if (pocimas[i].tipo == 1){
 						for (int j = 0; j <= kyojines.length-1; j++) {
 							if (kyojines[j]!=null) {
 								kyojines[j].velocidad = 0.1;
@@ -363,7 +368,9 @@ public class Juego extends InterfaceJuego
 							if (vidas[cont_vidas-1]!=null){
 								vidas[cont_vidas-1]=null;
 								cont_vidas --;
-							//respawnwa a mikasa en un lugar random	
+								//reproduce sonido mikasa gritando
+								Herramientas.play("mikasa_scream.wav");
+								//respawnwa a mikasa en un lugar random	
 								mikasa.x = (int) (Math.random() * 800 + 1);
 								mikasa.y = (int) (Math.random() * 600 + 1);
 							}
@@ -409,7 +416,9 @@ public class Juego extends InterfaceJuego
 				for (int i = 0; i <= fireball.length-1; i++) {
 					if (fireball[i]==null) {
 						fireball[i] = new Fireball(boss.x, boss.y, 2.5, Math.PI/4, 30);	
-						break;
+						//reproduce sonido de fireball
+						Herramientas.play("fireball.wav");
+						break;		
 					}
 				}
 			}

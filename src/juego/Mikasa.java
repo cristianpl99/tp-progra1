@@ -23,7 +23,7 @@ public class Mikasa
 		img1 = Herramientas.cargarImagen("mikasa.png");
 		img2 = Herramientas.cargarImagen("convertida.png");
 	}
-	
+	//Metodos
 	public void dibujarse(Entorno entorno)
 	{
 		if (this.convertida == false){
@@ -126,6 +126,11 @@ public class Mikasa
 	   else{
 		   return false;
 	   }
+	}
+	public void reset() 
+	{
+		this.x = 400;
+		this.y = 300;
 	}
 	
 }
