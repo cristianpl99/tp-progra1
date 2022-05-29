@@ -91,10 +91,10 @@ public class Juego extends InterfaceJuego
 		//nivel facil
 		if ((mikasa.x >= 120 && mikasa.x<= 180) && (mikasa.y >=280 && mikasa.y <=350)){
 			kyojines = new Kyojin [4];	
-			kyojines[0] = new Kyojin(50, 50, 0.7, Math.PI/4, 30);
-			kyojines[1] = new Kyojin(50, 550, 0.7, Math.PI/4, 30);
-			kyojines[2] = new Kyojin(550, 50, 0.7, Math.PI/4, 30);
-			kyojines[3] = new Kyojin(550, 550, 0.7, Math.PI/4, 30);
+			kyojines[0] = new Kyojin(50, 50, 0.3, Math.PI/4, 30);
+			kyojines[1] = new Kyojin(50, 550, 0.3, Math.PI/4, 30);
+			kyojines[2] = new Kyojin(550, 50, 0.3, Math.PI/4, 30);
+			kyojines[3] = new Kyojin(550, 550, 0.3, Math.PI/4, 30);
 			//mejorar con un for
 			vidas = new Vidas [5];
 			vidas[0]= new Vidas (500, 550);
@@ -110,10 +110,10 @@ public class Juego extends InterfaceJuego
 		//nivel medio
 		if ((mikasa.x >= 270 && mikasa.x<= 430) && (mikasa.y >=140 && mikasa.y <=170)){
 			kyojines = new Kyojin [4];	
-			kyojines[0] = new Kyojin(50, 50, 1.5, Math.PI/4, 30);
-			kyojines[1] = new Kyojin(50, 550, 1.5, Math.PI/4, 30);
-			kyojines[2] = new Kyojin(550, 50, 1.5, Math.PI/4, 30);
-			kyojines[3] = new Kyojin(550, 550, 1.5, Math.PI/4, 30);		    
+			kyojines[0] = new Kyojin(50, 50, 1, Math.PI/4, 30);
+			kyojines[1] = new Kyojin(50, 550, 1, Math.PI/4, 30);
+			kyojines[2] = new Kyojin(550, 50, 1, Math.PI/4, 30);
+			kyojines[3] = new Kyojin(550, 550, 1, Math.PI/4, 30);		    
 			//mejorar con un for
 			vidas = new Vidas [4];
 			vidas[0]= new Vidas (500, 550);
@@ -327,10 +327,20 @@ public class Juego extends InterfaceJuego
 	}	
 		//mueve los kyojines
 		for (int i = 0; i <= kyojines.length-1; i++) {
-			if (kyojines[i]!=null) {
-				kyojines[i].mover();
-			}
-		}
+			if (kyojines[i]!=null){
+				for (int j = 0; j <= kyojines.length-1; j++) {
+					if (kyojines[j]!=null){
+						if (((kyojines[i].x >= kyojines[j].x+15)||(kyojines[i].x <= kyojines[j].x-15))){
+							kyojines[i].mover();
+						}
+					}
+					}
+						}
+					}
+				
+			
+		
+	
 		//cada diez segundos hace respawn de kyojines si hay menos de 4
 		//y no esta el jefe en juego
 		if ((tiempo % 720 == 0)&&(boss ==null)) {
