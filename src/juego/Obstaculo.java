@@ -15,6 +15,7 @@ public class Obstaculo
 	Image img3;
 	Image entrada;
 	
+	
 	public Obstaculo(int x, int y) 
 	{
 		this.x = x;

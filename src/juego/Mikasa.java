@@ -103,9 +103,7 @@ public class Mikasa
 		 this.girar(Herramientas.radianes(-1)); 
 	   
 	   }
-	   public void cambiarTrayectoria(double x, double y) {
-		
-		//angulo += Math.PI/60;
+	   public void rodearObstaculo(double x, double y) {
 		if (this.y> y) {
 		this.y=this.y-5; 
 		}
@@ -120,7 +118,7 @@ public class Mikasa
 		}
 	   }
 	   public boolean chocasteCon(double x, double y){
-		if ((this.x >= x - 40) && (this.x <= x + 40) && (this.y >= y - 80) && (this.y <= y + 80) ){
+		if ((this.x >= x - 40) && (this.x <= x + 40) && (this.y >= y - 70) && (this.y <= y + 90) ){
 			return true;  
 	   }
 	   else{

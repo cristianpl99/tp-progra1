@@ -33,17 +33,18 @@ public class Proyectil {
 		this.x += (Math.cos(this.angulo)*2) * velocidad;
 		this.y += (Math.sin(this.angulo)*2) * velocidad;
 	}
+	public boolean impacto(double x, double y) {
+		if ((x >= this.x - 40) && (x <= this.x + 40) && (y >= this.y - 40) && (y <= this.y + 40) ){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 	
 	public boolean chocasteCon(Entorno e) {
 
 		return  x >= e.ancho() || x <=0 || y >= e.alto()|| y <=0;		
 	}
-	
-	public void acelerar() {
-		velocidad += 0.05;
-	}
-
-	
-
-	
+		
 }

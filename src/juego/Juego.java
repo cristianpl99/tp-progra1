@@ -33,7 +33,7 @@ public class Juego extends InterfaceJuego
 	{
 		// Inicializa el objeto entorno, pero aun no lo inicia.
 		entorno = new Entorno(this, "Attack on Titan", 800, 600);
-		mikasa = new Mikasa(400, 500);
+		mikasa = new Mikasa(100, 500);
 		fondo = new Fondo(0,0, 2);
 		//array de entradas y obstaculos que son comunes a los tres niveles del juego
 		entradas = new Obstaculo [3];
@@ -57,15 +57,9 @@ public class Juego extends InterfaceJuego
 		 */
 		entorno.iniciar();	
 		//inicia la musica del juego
-		Herramientas.play("soundtrack.wav");
+		Herramientas.loop("soundtrack.wav");
 		//Herramientas.cargarSonido("soundtrack.wav").stop();	
 	}
-	/*
-	 * Durante el juego, el método tick() será ejecutado en cada instante y 
-	 * por lo tanto es el método más importante de esta clase. Aquí se debe 
-	 * actualizar el estado interno del juego para simular el paso del tiempo 
-	 * (ver el enunciado del TP para mayor detalle).
-	 */
 	
 	public void tick(){
 	
@@ -90,18 +84,30 @@ public class Juego extends InterfaceJuego
 		mikasa.dibujarse(entorno);		
 		//nivel facil
 		if ((mikasa.x >= 120 && mikasa.x<= 180) && (mikasa.y >=280 && mikasa.y <=350)){
+			/*opcion para inicarlos en posiciones random. por jugabilidad, preferimos iniciarlos en posiciones
+			predeterminadas 
+			kyojines = new Kyojin [4];
+			for (int i = 0; i <= kyojines.length-1; i++) {
+				kyojines[i] = new Kyojin((int) (Math.random() * 800 + 1), (int) (Math.random() * 800 + 1), 0.3, Math.PI/4, 30);
+				for (int j = 0; j <= obstaculos.length-1; j++){
+					if((kyojines[i].chocasteConObstaculo(obstaculos[j].x, obstaculos[j].y))||kyojines[i].chocasteCon(entorno)){
+					i--;
+					}
+				}
+			}
+			*/		
 			kyojines = new Kyojin [4];	
-			kyojines[0] = new Kyojin(50, 50, 0.3, Math.PI/4, 30);
-			kyojines[1] = new Kyojin(50, 550, 0.3, Math.PI/4, 30);
-			kyojines[2] = new Kyojin(550, 50, 0.3, Math.PI/4, 30);
-			kyojines[3] = new Kyojin(550, 550, 0.3, Math.PI/4, 30);
+			kyojines[0] = new Kyojin(50, 50, ((int) (Math.random() * 0.5 + 1)), Math.PI/4, 30);
+			kyojines[1] = new Kyojin(50, 550,((int) (Math.random() * 0.5 + 1)) , Math.PI/4, 30);
+			kyojines[2] = new Kyojin(550, 50,((int) (Math.random() * 0.5 + 1)) , Math.PI/4, 30);
+			kyojines[3] = new Kyojin(550, 550,((int) (Math.random() * 0.5 + 1)) , Math.PI/4, 30);
 			//mejorar con un for
 			vidas = new Vidas [5];
-			vidas[0]= new Vidas (500, 550);
-			vidas[1]= new Vidas (550, 550);
-			vidas[2]= new Vidas (600, 550);
-			vidas[3]= new Vidas (650, 550);
-			vidas[4]= new Vidas (700, 550);
+			int ubicacion_vidas = 500;
+			for (int i = 0; i <= vidas.length-1; i++) {
+				vidas[i] = new Vidas(ubicacion_vidas, 550);
+				ubicacion_vidas+=50;
+			}
 			//contador de vidas igual a longitud del array
 			cont_vidas = vidas.length;
 		    nivel=true;
@@ -114,12 +120,13 @@ public class Juego extends InterfaceJuego
 			kyojines[1] = new Kyojin(50, 550, 1, Math.PI/4, 30);
 			kyojines[2] = new Kyojin(550, 50, 1, Math.PI/4, 30);
 			kyojines[3] = new Kyojin(550, 550, 1, Math.PI/4, 30);		    
-			//mejorar con un for
+		
 			vidas = new Vidas [4];
-			vidas[0]= new Vidas (500, 550);
-			vidas[1]= new Vidas (550, 550);
-			vidas[2]= new Vidas (600, 550);
-			vidas[3]= new Vidas (650, 550);
+			int ubicacion_vidas = 500;
+			for (int i = 0; i <= vidas.length-1; i++) {
+				vidas[i] = new Vidas(ubicacion_vidas, 550);
+				ubicacion_vidas+=50;
+			}
 			//contador de vidas igual a longitud del array
 			cont_vidas = vidas.length;
 			nivel=true;
@@ -135,9 +142,12 @@ public class Juego extends InterfaceJuego
 			kyojines[4] = new Kyojin(660, 490, 2.2, Math.PI/4, 30);
      		
 			vidas = new Vidas [3];
-			vidas[0]= new Vidas (550, 550);
-			vidas[1]= new Vidas (650, 550);
-			vidas[2]= new Vidas (750, 550);
+			vidas = new Vidas [5];
+			int ubicacion_vidas = 500;
+			for (int i = 0; i <= vidas.length-1; i++) {
+				vidas[i] = new Vidas(ubicacion_vidas, 550);
+				ubicacion_vidas+=50;
+			}
 			//contador de vidas igual a longitud del array
 			cont_vidas = vidas.length;
 			nivel=true;
@@ -177,12 +187,9 @@ public class Juego extends InterfaceJuego
   		mikasa.teclaDown(entorno);
 		//mikasa evita los obstaculos
 		  for (int j = 0; j <= obstaculos.length-1; j++) {
-			  //forma anterior a idear el metodo correspondiente
-			//if ((mikasa.x >= obstaculos[j].x - 35) && (mikasa.x <= obstaculos[j].x + 35) && (mikasa.y >= obstaculos[j].y - 35) && (mikasa.y <= obstaculos[j].y + 35) ){  
-			//le paso las coordenadas de los obstaculos
 			if (mikasa !=null){
 				if (mikasa.chocasteCon(obstaculos[j].x, obstaculos[j].y) == true){
-					mikasa.cambiarTrayectoria(obstaculos[j].x, obstaculos[j].y);
+					mikasa.rodearObstaculo(obstaculos[j].x, obstaculos[j].y);
 			} 
 		}
 		   }
@@ -288,19 +295,12 @@ public class Juego extends InterfaceJuego
 			kyojines[i].cambiarAngulo(mikasa.x, mikasa.y);
 			kyojines[i].dibujarse(entorno);
 			}
-		}
-		//si chocan con el borde, cambian de trayectoria
-		for (int i = 0; i <= kyojines.length-1; i++) {
-			if (kyojines[i]!=null) {
-				if (kyojines[i].chocasteCon(entorno)) 
-					kyojines[i].cambiarTrayectoria();
-			}
 		}		
 		for (int i = 0; i <= kyojines.length-1; i++) {		
 			//si el proyectil impacta con un kyojin, lo mata
 			if (proyectil !=null){
 				if (kyojines[i]!=null) {
-				if ((kyojines[i].x >= proyectil.x - 40) && (kyojines[i].x <= proyectil.x + 40) && (kyojines[i].y >= proyectil.y - 40) && (kyojines[i].y <= proyectil.y + 40) ){ 
+				if ((proyectil.impacto(kyojines[i].x, kyojines[i].y))){ 
 					//crea craters en el array con la ubicacion donde mueren los kyojines
 					crater [i] = new Obstaculo ((int)kyojines[i].x,(int) kyojines[i].y);
 					kyojines[i]=null;
@@ -313,34 +313,42 @@ public class Juego extends InterfaceJuego
 			}
 			}			
 			}	
-		//si chocan con un obstaculo cambian de trayectoria
-		//hacer metodo!!
+		//si chocan con otro kyojin, se distancian
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			for (int j = 0; j <= obstaculos.length-1; j++) {
 			if (kyojines[i]!=null) {	
-				//if ((kyojines[i].x >= obstaculos[j].x - 70) && (kyojines[i].x <= obstaculos[j].x + 70) && (kyojines[i].y >= obstaculos[j].y - 70) && (kyojines[i].y <= obstaculos[j].y + 70) ){ 
 				if (kyojines[i].chocasteConObstaculo(obstaculos[j].x, obstaculos[j].y) == true){	
 					kyojines[i].cambiarTrayectoria();
 			}
 		}
 		}
-	}	
+	}
+
+	//si chocan con un obstaculo cambian de trayectoria
+	for (int i = 0; i <= kyojines.length-1; i++) {
+		for (int j = 0; j <= kyojines.length-1; j++) {
+		if ((kyojines[i]!=null)&&(kyojines[j]!=null)) {	
+			if ((kyojines[i].chocasteConKyojin(kyojines[j].x, kyojines[j].y) == true)&&(i != j)){	
+				kyojines[i].cambiarTrayectoria();
+		}
+	}
+	}
+}
+		//si chocan con el borde, cambian de trayectoria
+		for (int i = 0; i <= kyojines.length-1; i++) {
+			if (kyojines[i]!=null) {
+				if (kyojines[i].chocasteCon(entorno)==true){
+					kyojines[i].cambiarTrayectoria();
+				}
+			}
+		}		
 		//mueve los kyojines
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null){
-				for (int j = 0; j <= kyojines.length-1; j++) {
-					if (kyojines[j]!=null){
-						if (((kyojines[i].x >= kyojines[j].x+15)||(kyojines[i].x <= kyojines[j].x-15))){
-							kyojines[i].mover();
+				kyojines[i].mover();
 						}
 					}
-					}
-						}
-					}
-				
-			
-		
-	
+					
 		//cada diez segundos hace respawn de kyojines si hay menos de 4
 		//y no esta el jefe en juego
 		if ((tiempo % 720 == 0)&&(boss ==null)) {
@@ -358,20 +366,18 @@ public class Juego extends InterfaceJuego
 				fin = false;
 				break;
 				}
-				//MALISIMO el codigo, mejorar
+				//si mueren todos los kyojines, pone en juego al jefe final
 				if ((boss == null)&&(kyojines[0] == null)&&(kyojines[1] == null)&&(kyojines[2] == null)&&(kyojines[3] == null)){
 				//si mueren todos los kyojines, pone en juego al jefe final
 				//al Boss en la esquina superior derecha y a Mikasa en la esquina inferior izquierda
-				boss = new Boss(40, 40, 0.7, Math.PI/4, 30, 3);
+				boss = new Boss(40, 40, 1, Math.PI/4, 30, 3);
 				mikasa.x = 770;
 				mikasa.y = 570;
 			}
 		}	
 		// si chocan con mykasa, mykasa muere. si mikasa esta convertida, el kyojin muere
-		//hacer metodo!!
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
-				//if ((kyojines[i].x >= mikasa.x - 60) && (kyojines[i].x <= mikasa.x + 60) && (kyojines[i].y >= mikasa.y - 60) && (kyojines[i].y <= mikasa.y + 60)){ 
 					if (mikasa.chocasteCon(kyojines[i].x, kyojines[i].y) == true){
 					if ((mikasa != null) && (mikasa.convertida == false)){
 							//baja las vidas
@@ -402,15 +408,13 @@ public class Juego extends InterfaceJuego
 			//if(boss.chocasteCon(entorno)){
 				//boss.cambiarTrayectoria();
 			//}
-			//hacer metodo!!
-			//if ((boss.x >= mikasa.x - 60) && (boss.x <= mikasa.x + 60) && (boss.y >= mikasa.y - 60) && (boss.y <= mikasa.y + 60)){
 				if (mikasa.chocasteCon(boss.x, boss.y) == true){
 				mikasa = null;
 				fin=true;
 			}
-			//hacer metodo!!
+			//si el proyectil impacta al Boss, le quita una vida.
 			if (proyectil !=null){
-				if ((boss.x >= proyectil.x - 40) && (boss.x <= proyectil.x + 40) && (boss.y >= proyectil.y - 40) && (boss.y <= proyectil.y + 40) ){ 
+				if(proyectil.impacto(boss.x, boss.y)){
 				proyectil = null;
 				boss.vidas --;
 				}
@@ -421,7 +425,7 @@ public class Juego extends InterfaceJuego
 				boss = null;
 				fin = true;
 			}
-			//cada cinco segundos el boss tira una bola de fuero
+			//cada cinco segundos el boss tira una bola de fuego
 			if ((tiempo % 600 == 0)&& (boss != null)){
 				for (int i = 0; i <= fireball.length-1; i++) {
 					if (fireball[i]==null) {
@@ -494,17 +498,7 @@ public class Juego extends InterfaceJuego
 		
 		}	
 		}
-		}
-		if(entorno.sePresiono(entorno.TECLA_ENTER)){
-			pausa = pausa * -1;
-		}
-			while (pausa < 0){
-				if(entorno.sePresiono(entorno.TECLA_CTRL)){
-					pausa = pausa * -1;	
-				}
-				
-			}
-		
+	}
 	}
 	
 	

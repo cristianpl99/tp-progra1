@@ -33,7 +33,11 @@ public class Fireball {
 	}
 
 	public boolean chocasteCon(Entorno e) {
-		return x <= radio || y <= radio || x >= e.ancho() - radio || y >= e.alto() - radio;		
+		if(x <= radio || y <= radio || x >= e.ancho() - radio || y >= e.alto() - radio){
+		return true;
+		}else{
+			return false;
+		}
 	}
 	
 	public void cambiarTrayectoria() {

@@ -1,3 +1,4 @@
+
 package juego;
 
 import java.awt.Image;
@@ -41,30 +42,21 @@ public class Kyojin {
 	public void mover() {
 		this.x += Math.cos(this.angulo)*(this.velocidad);
 		this.y += Math.sin(this.angulo)*(this.velocidad);
-		//forma ideada de mover los kyojines antes que cesar pase la version 
-		//asteroides. funciona pero cuando sen = 0 o cos = 0 se ralentiza la 
-		//velocidad de los kyojines
-		/*
-		if (Mikasa.x >= this.x){
-			x += velocidad * Math.cos(angulo);
-		}
-		if (Mikasa.x <= this.x){
-			x -= velocidad * Math.cos(angulo);
-		}
-		if (Mikasa.y >= this.y){
-			y -= velocidad * Math.sin(angulo);
-		}
-		if (Mikasa.y <= this.y){
-			y += velocidad * Math.sin(angulo);
-		}
-		*/
 		
 	}	
 	public boolean chocasteCon(Entorno e) {
 		return x <= radio || y <= radio || x >= e.ancho() - radio || y >= e.alto() - radio;		
 	}
 	public boolean chocasteConObstaculo(double x, double y){
-		if ((this.x >= x - 80) && (this.x <= x + 80) && (this.y >= y - 80) && (this.y <= y + 80) ){
+		if ((this.x >= x - 80) && (this.x <= x + 80) && (this.y >= y - 80) && (this.y <= y + 100) ){
+			return true;  
+	   }
+	   else{
+		   return false;
+	   }
+	}
+	public boolean chocasteConKyojin(double x, double y){
+		if ((this.x >= x - 15) && (this.x <= x + 15) && (this.y >= y - 15) && (this.y <= y + 15) ){
 			return true;  
 	   }
 	   else{
@@ -75,4 +67,4 @@ public class Kyojin {
 	public void cambiarTrayectoria() {
 		angulo += Math.PI/2;
 	}
-}
+}	
