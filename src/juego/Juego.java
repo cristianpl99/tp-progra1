@@ -313,7 +313,7 @@ public class Juego extends InterfaceJuego
 			}
 			}			
 			}	
-		//si chocan con otro kyojin, se distancian
+		//si chocan con un obstaculo cambian de trayectoria
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			for (int j = 0; j <= obstaculos.length-1; j++) {
 			if (kyojines[i]!=null) {	
@@ -323,17 +323,22 @@ public class Juego extends InterfaceJuego
 		}
 		}
 	}
-
-	//si chocan con un obstaculo cambian de trayectoria
+	//si choca con otro kyojin, se distancian aumentando la velocidad
+	
 	for (int i = 0; i <= kyojines.length-1; i++) {
 		for (int j = 0; j <= kyojines.length-1; j++) {
 		if ((kyojines[i]!=null)&&(kyojines[j]!=null)) {	
 			if ((kyojines[i].chocasteConKyojin(kyojines[j].x, kyojines[j].y) == true)&&(i != j)){	
-				kyojines[i].cambiarTrayectoria();
+				kyojines[i].x +=7;
+				kyojines[i].y +=7;
+				kyojines[j].x-=7;
+				kyojines[j].y-=7;
+				break;
 		}
-	}
-	}
-}
+		}
+		}
+		}
+	
 		//si chocan con el borde, cambian de trayectoria
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {

@@ -45,7 +45,7 @@ public class Kyojin {
 		
 	}	
 	public boolean chocasteCon(Entorno e) {
-		return x <= radio || y <= radio || x >= e.ancho() - radio || y >= e.alto() - radio;		
+		return x <= radio|| y <= radio || x >= e.ancho() - radio|| y >= e.alto() - radio;		
 	}
 	public boolean chocasteConObstaculo(double x, double y){
 		if ((this.x >= x - 80) && (this.x <= x + 80) && (this.y >= y - 80) && (this.y <= y + 100) ){
@@ -62,9 +62,14 @@ public class Kyojin {
 	   else{
 		   return false;
 	   }
-	}
-	
+	}	
 	public void cambiarTrayectoria() {
 		angulo += Math.PI/2;
+	}
+	public void acelerar() {
+		this.velocidad += 0.01;
+	}
+	public void ralentizar() {
+		this.velocidad -= 0.02;
 	}
 }	
