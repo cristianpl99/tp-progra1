@@ -138,10 +138,8 @@ public class Mikasa
 		else{
 			return 0;
 		}
-
 	}
-	public void reset() 
-	{
+	public void reset(){
 		this.x = 400;
 		this.y = 300;
 	}

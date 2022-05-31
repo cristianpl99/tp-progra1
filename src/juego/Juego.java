@@ -329,21 +329,20 @@ public class Juego extends InterfaceJuego
 		}
 		}
 	}
-	//si choca con otro kyojin, se distancian	
-	for (int i = 0; i <= kyojines.length-1; i++) {
-		for (int j = 0; j <= kyojines.length-1; j++) {
-		if ((kyojines[i]!=null)&&(kyojines[j]!=null)) {	
-			if ((kyojines[i].chocasteConKyojin(kyojines[j].x, kyojines[j].y,obstaculos[j].x, obstaculos[j].y) == true)&&(i != j)&&(kyojines[i].chocasteCon(entorno)==false)){	
-				kyojines[i].x +=10;
-				kyojines[i].y +=10;
-				kyojines[j].x-=10;
-				kyojines[j].y-=10;
-				break;
-		}
-		}
-		}
-		}
-	
+		//si choca con otro kyojin, se distancian	
+		for (int i = 0; i <= kyojines.length-1; i++) {
+			for (int j = 0; j <= kyojines.length-1; j++) {
+				if ((kyojines[i]!=null)&&(kyojines[j]!=null)) {	
+					if ((kyojines[i].chocasteConKyojin(kyojines[j].x, kyojines[j].y,obstaculos[j].x, obstaculos[j].y) == true)&&(i != j)&&(kyojines[i].chocasteCon(entorno)==false)){	
+						kyojines[i].x +=10;
+						kyojines[i].y +=10;
+						kyojines[j].x-=10;
+						kyojines[j].y-=10;
+						break;
+					}
+				}
+			}
+		}	
 		//si chocan con el borde, cambian de trayectoria
 		for (int i = 0; i <= kyojines.length-1; i++) {
 			if (kyojines[i]!=null) {
@@ -357,8 +356,7 @@ public class Juego extends InterfaceJuego
 			if (kyojines[i]!=null){
 				kyojines[i].mover();
 						}
-					}
-					
+					}			
 		//cada diez segundos hace respawn de kyojines si hay menos de 4
 		//y no esta el jefe en juego
 		if ((tiempo % 720 == 0)&&(boss ==null)) {
@@ -380,7 +378,7 @@ public class Juego extends InterfaceJuego
 				if ((boss == null)&&(kyojines[0] == null)&&(kyojines[1] == null)&&(kyojines[2] == null)&&(kyojines[3] == null)){
 				//si mueren todos los kyojines, pone en juego al jefe final
 				//al Boss en la esquina superior derecha y a Mikasa en la esquina inferior izquierda
-				boss = new Boss(40, 40, 1.2, Math.PI/4, 30, 15);
+				boss = new Boss(40, 40, 1.2, Math.PI/4, 30, 10);
 				mikasa.x = 770;
 				mikasa.y = 570;
 			}
@@ -415,16 +413,14 @@ public class Juego extends InterfaceJuego
 			boss.cambiarAngulo(mikasa.x, mikasa.y);
 			boss.dibujarse(entorno);
 			boss.mover();
-			//if(boss.chocasteCon(entorno)){
-				//boss.cambiarTrayectoria();
-			//}
-				if (mikasa.chocasteCon(boss.x, boss.y) == true){
-				mikasa = null;
-				fin=true;
+		//si el Boss toca a Mikasa, la mata	
+		if (mikasa.chocasteCon(boss.x, boss.y) == true){
+			mikasa = null;
+			fin=true;
 			}
-			//si el proyectil impacta al Boss, le quita una vida.
-			if (proyectil !=null){
-				if(proyectil.impacto(boss.x, boss.y)){
+		//si el proyectil impacta al Boss, le quita una vida.
+		if (proyectil !=null){
+			if(proyectil.impacto(boss.x, boss.y)){
 				proyectil = null;
 				boss.vidas --;
 				}
@@ -435,45 +431,45 @@ public class Juego extends InterfaceJuego
 				boss = null;
 				fin = true;
 			}
-			//cada cinco segundos el boss tira una bola de fuego
-			if ((tiempo % 600 == 0)&& (boss != null)){
-				for (int i = 0; i <= fireball.length-1; i++) {
-					if (fireball[i]==null) {
-						fireball[i] = new Fireball(boss.x, boss.y, 2.5, Math.PI/4, 30);	
-						//reproduce sonido de fireball
-						Herramientas.play("fireball.wav");
-						break;		
+		//cada cinco segundos el boss tira una bola de fuego
+		if ((tiempo % 600 == 0)&& (boss != null)){
+			for (int i = 0; i <= fireball.length-1; i++) {
+				if (fireball[i]==null) {
+					fireball[i] = new Fireball(boss.x, boss.y, 2.5, Math.PI/4, 30);	
+					//reproduce sonido de fireball
+					Herramientas.play("fireball.wav");
+					break;		
 					}
 				}
 			}
-			//dibuja las bolas de fuego
+		//dibuja las bolas de fuego
 			for (int i = 0; i <= fireball.length-1; i++) {
 				if (fireball[i]!=null) {
-						fireball[i].dibujar(entorno);
+					fireball[i].dibujar(entorno);
 			}
 		}
-			//mueve las bolas de fuego
+		//mueve las bolas de fuego
 			for (int i = 0; i <= fireball.length-1; i++) {
 				if (fireball[i]!=null) {
-						fireball[i].mover();
+					fireball[i].mover();
 			}
 		}
-			//si es necesario las hace rebotar con el limite de la pantalla
+		//si es necesario las hace rebotar con el limite de la pantalla
 			for (int i = 0; i <= fireball.length-1; i++) {
 				if (fireball[i]!=null) {
-						if (fireball[i].chocasteCon(entorno)) 
-							fireball[i].cambiarTrayectoria();
+					if (fireball[i].chocasteCon(entorno)) 
+						fireball[i].cambiarTrayectoria();
 			}
 		}
 		//si una bola de fuego choca a mikasa, le baja una vida y hace un respawn random
-		for (int i = 0; i <= fireball.length-1; i++) {
-			if (fireball[i]!=null){
-				if (mikasa !=null){
-					if (mikasa.chocasteCon(fireball[i].x, fireball[i].y)) {
+			for (int i = 0; i <= fireball.length-1; i++) {
+				if (fireball[i]!=null){
+					if (mikasa !=null){
+						if (mikasa.chocasteCon(fireball[i].x, fireball[i].y)) {
 							//baja las vidas
 							if (vidas[cont_vidas-1]!=null){
-								vidas[cont_vidas-1]=null;
-								cont_vidas --;
+							vidas[cont_vidas-1]=null;
+							cont_vidas --;
 							//respawnwa a mikasa en un lugar random	
 								mikasa.x = (int) (Math.random() * 800 + 1);
 								mikasa.y = (int) (Math.random() * 600 + 1);
