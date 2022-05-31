@@ -12,13 +12,15 @@ public class Vidas
 	int cantidad;
     double angulo;
 	Image img1;
-    public Vidas(int x, int y) 
+    
+	public Vidas(int x, int y) 
 	{
 		this.x = x;
 		this.y = y;
 		img1 = Herramientas.cargarImagen("vidas.png");
 	}
-    public void dibujarse(Entorno entorno){
+    
+	public void dibujarse(Entorno entorno){
         entorno.dibujarImagen(img1, this.x, this.y, this.angulo, 0.1);
     }
 }

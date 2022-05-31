@@ -35,7 +35,6 @@ public class Pocima
 	if (tipo == 3) {
 		entorno.dibujarImagen(img8, this.x, this.y, this.angulo, 0.1);		
 	}
-
 }
 }
 	

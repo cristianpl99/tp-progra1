@@ -4,7 +4,6 @@ import java.awt.Image;
 import entorno.Entorno;
 import entorno.Herramientas;
 
-
 public class Fireball {
 	//Variables de instancia
 	public double x;
@@ -39,7 +38,7 @@ public class Fireball {
 			return false;
 		}
 	}
-	
+
 	public void cambiarTrayectoria() {
 		angulo += Math.PI/2;
 	}

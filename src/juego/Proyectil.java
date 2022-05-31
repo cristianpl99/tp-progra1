@@ -13,8 +13,7 @@ public class Proyectil {
 	public int radio;
 	public boolean activo = false;
 	Image img5;
-	
-	
+		
 	public Proyectil(double x, double y, double velocidad, double angulo, int radio, boolean activo) {
 		this.x = x;
 		this.y = y;
@@ -33,6 +32,7 @@ public class Proyectil {
 		this.x += (Math.cos(this.angulo)*2) * velocidad;
 		this.y += (Math.sin(this.angulo)*2) * velocidad;
 	}
+	
 	public boolean impacto(double x, double y) {
 		if ((x >= this.x - 40) && (x <= this.x + 40) && (y >= this.y - 40) && (y <= this.y + 40) ){
 			return true;
@@ -41,7 +41,7 @@ public class Proyectil {
 			return false;
 		}
 	}
-	
+
 	public boolean chocasteCon(Entorno e) {
 
 		return  x >= e.ancho() || x <=0 || y >= e.alto()|| y <=0;		

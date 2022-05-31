@@ -51,59 +51,64 @@ public class Mikasa
 		this.x += Math.cos(this.angulo)*3;
 		this.y += Math.sin(this.angulo)*3;
 	}
+	
 	public void moverAtras() {
 		this.x -= Math.cos(this.angulo)*3;
 		this.y -= Math.sin(this.angulo)*3;
 	}
+	
 	public void teclaUp (Entorno entorno) { 
 		if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) { 
-		if (this.x <= 10){ 
-		  	this.x = 11; 
-		 } 
-		 if (this.x >= 790){ 
-		  this.x = 789; 
-		 } 
-		 if (this.y <= 10) { 
-		  this.y = 11; 
-		 } 
-		 if (this.y >= 590) { 
-		  this.y = 589; 
-		 } 
-		 else { 
-		  this.moverAdelante(); 
-		 } 
+			if (this.x <= 10){ 
+				this.x = 11; 
 		} 
-	   }  	   
-	   public void teclaDown (Entorno entorno) { 
+		if (this.x >= 790){ 
+			this.x = 789; 
+		} 
+		if (this.y <= 10) { 
+			this.y = 11; 
+		} 
+		if (this.y >= 590) { 
+			this.y = 589; 
+		} 
+		else { 
+			this.moverAdelante(); 
+		} 
+		} 
+		}  	   
+	public void teclaDown (Entorno entorno) { 
 		if (entorno.estaPresionada(entorno.TECLA_ABAJO)) { 
-		 if (this.x <= 10){ 
-		  this.x = 11; 
-		 } 
-		 if (this.x >= 790){ 
-		  this.x = 789; 
-		 } 
-		 if (this.y <= 10) { 
-		  this.y = 11; 
-		 } 
-		 if (this.y >= 590) { 
-		  this.y = 589; 
-		 } 
-		 else { 
-		  this.moverAtras(); 
-		 } 
-	   } 
-	   } 
-	   public void teclaRight (Entorno entorno) { 
+			if (this.x <= 10){ 
+				this.x = 11; 
+		} 
+			if (this.x >= 790){ 
+				this.x = 789; 
+		} 
+			if (this.y <= 10) { 
+			this.y = 11; 
+		} 
+			if (this.y >= 590) { 
+			this.y = 589; 
+		} 
+			else { 
+			this.moverAtras(); 
+		} 
+		} 
+		} 
+	
+	public void teclaRight (Entorno entorno) { 
 		if (entorno.estaPresionada(entorno.TECLA_DERECHA)) 
-		 this.girar(Herramientas.radianes(1)); 
-	   } 
-	   
-	   public void teclaLeft(Entorno entorno) { 
+			this.girar(Herramientas.radianes(1)); 
+		} 
+	
+	
+	public void teclaLeft(Entorno entorno) { 
 		if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) 
-		 this.girar(Herramientas.radianes(-1)); 
-	   
-	   }
-	   public void rodearObstaculo(double x, double y) {
+			this.girar(Herramientas.radianes(-1)); 
+	
+		}
+	
+	public void rodearObstaculo(double x, double y) {
 		if (this.y> y) {
 		this.y=this.y-5; 
 		}
@@ -116,15 +121,17 @@ public class Mikasa
 		if (this.x< x) {
 			this.x=this.x-5; 
 		}
-	   }
-	   public boolean chocasteCon(double x, double y){
+		}
+	
+	public boolean chocasteCon(double x, double y){
 		if ((this.x >= x - 40) && (this.x <= x + 40) && (this.y >= y - 70) && (this.y <= y + 90) ){
 			return true;  
-	   }
-	   else{
-		   return false;
-	   }
+		}
+		else{
+			return false;
+		}
 	}
+	
 	public int seleccionNivel (double x, double y){
 		if ((this.x >= 120 && this.x<= 180) && (this.y >=280 && this.y <=350)){
 			return 1;
@@ -139,6 +146,7 @@ public class Mikasa
 			return 0;
 		}
 	}
+	
 	public void reset(){
 		this.x = 400;
 		this.y = 300;

@@ -15,7 +15,6 @@ public class Obstaculo
 	Image img3;
 	Image entrada;
 	
-	
 	public Obstaculo(int x, int y) 
 	{
 		this.x = x;
@@ -31,14 +30,17 @@ public class Obstaculo
 	{
 			entorno.dibujarImagen(img1, this.x, this.y, this.angulo, 0.2);		
 	}
+	
 	public void dibujarCasa(Entorno entorno)
 	{
 			entorno.dibujarImagen(img2, this.x, this.y, this.angulo, 0.4);		
 	}
+	
 	public void dibujarCrater(Entorno entorno)
 	{
 			entorno.dibujarImagen(img3, this.x, this.y, this.angulo, 0.6);		
 	}
+	
 	public void dibujarEntrada(Entorno entorno)
 	{
 			entorno.dibujarImagen(entrada, this.x, this.y, this.angulo, 0.2);		

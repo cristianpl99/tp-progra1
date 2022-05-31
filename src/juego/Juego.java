@@ -165,15 +165,15 @@ public class Juego extends InterfaceJuego
 			entorno.cambiarFont("Arial", 70, Color.yellow);
 			entorno.escribirTexto("VICTORY", 230, 280);
 			entorno.cambiarFont("Arial", 40, Color.red);
-			entorno.escribirTexto(kills + "  KYOJIN KILLED", 170, 450);
-			entorno.escribirTexto("TITAN ELIMINATED", 170, 500);
+			entorno.escribirTexto(kills + "  KYOJIN KILLED", 190, 450);
+			entorno.escribirTexto("TITAN ELIMINATED", 190, 500);
 		}
 		//chequea al principio del ciclo si mikasa esta viva, si esta muerta cambia el fondo.
 	if (mikasa == null || segundos <= 0){
 		fondo.fase = 3;
 		fondo.dibujarse(entorno);
 		entorno.cambiarFont("Arial", 70, Color.yellow);
-		entorno.escribirTexto("GAME OVER", 210, 280);
+		entorno.escribirTexto("GAME OVER", 190, 280);
 		fin = true;
 	}	
 		//si se dan las condiciones, el juego sigue

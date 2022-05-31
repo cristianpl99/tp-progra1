@@ -13,8 +13,7 @@ public class Fondo
 	Image inicio;
 	Image principal;
 	Image game_over;
-	
-	
+		
 	public Fondo(double x, double y, int fase) 
 	{
 		this.x = x;
@@ -24,6 +23,7 @@ public class Fondo
 		principal = Herramientas.cargarImagen("fondo.jpg");
 		game_over = Herramientas.cargarImagen("game_over.jpg");
 	}
+	
 	public void dibujarse(Entorno entorno)
 	{ 	//fondo de inicio
 		if (this.fase == 1){
