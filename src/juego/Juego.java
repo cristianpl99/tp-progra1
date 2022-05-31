@@ -250,8 +250,7 @@ public class Juego extends InterfaceJuego
 		//tipo 3 = suero convertidor
 		for (int i = 0; i <= pocimas.length-1; i++) {
 			if (pocimas[i]!=null) {
-				//forma anterior a idear y mejorar el codigo
-				//if ((mikasa.x >= pocimas[i].x - 15) && (mikasa.x <= pocimas[i].x + 15) && (mikasa.y >= pocimas[i].y - 15) && (mikasa.y <= pocimas[i].y + 15) ) {
+					
 					if (mikasa.chocasteCon(pocimas[i].x, pocimas[i].y)== true){
 					//reproduce sonido de pocima
 					Herramientas.play("potion_drink.wav");
@@ -334,10 +333,8 @@ public class Juego extends InterfaceJuego
 			for (int j = 0; j <= kyojines.length-1; j++) {
 				if ((kyojines[i]!=null)&&(kyojines[j]!=null)) {	
 					if ((kyojines[i].chocasteConKyojin(kyojines[j].x, kyojines[j].y,obstaculos[j].x, obstaculos[j].y) == true)&&(i != j)&&(kyojines[i].chocasteCon(entorno)==false)){	
-						kyojines[i].x +=10;
-						kyojines[i].y +=10;
-						kyojines[j].x-=10;
-						kyojines[j].y-=10;
+						kyojines[i].distanciarVerticeSuperior();
+						kyojines[j].distanciarVerticeInferior();
 						break;
 					}
 				}
@@ -500,8 +497,6 @@ public class Juego extends InterfaceJuego
 		}
 	}
 	}
-	
-	
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args)

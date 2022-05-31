@@ -66,10 +66,12 @@ public class Kyojin {
 	public void cambiarTrayectoria() {
 		angulo += Math.PI/2;
 	}
-	public void acelerar() {
-		this.velocidad += 0.01;
+	public void distanciarVerticeSuperior() {
+		this.x +=10;
+		this.y += 10;
 	}
-	public void ralentizar() {
-		this.velocidad -= 0.02;
+	public void distanciarVerticeInferior() {
+		this.x -=10;
+		this.y -= 10;
 	}
 }	
