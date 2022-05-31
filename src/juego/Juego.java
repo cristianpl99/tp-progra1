@@ -83,25 +83,25 @@ public class Juego extends InterfaceJuego
   		mikasa.teclaDown(entorno);
 		mikasa.dibujarse(entorno);		
 		//nivel facil
-		if ((mikasa.x >= 120 && mikasa.x<= 180) && (mikasa.y >=280 && mikasa.y <=350)){
+		if (mikasa.seleccionNivel(mikasa.x, mikasa.y)== 1){
 			/*opcion para inicarlos en posiciones random. por jugabilidad, preferimos iniciarlos en posiciones
 			predeterminadas 
 			kyojines = new Kyojin [4];
 			for (int i = 0; i <= kyojines.length-1; i++) {
-				kyojines[i] = new Kyojin((int) (Math.random() * 800 + 1), (int) (Math.random() * 800 + 1), 0.3, Math.PI/4, 30);
+				kyojines[i] = new Kyojin((int) (Math.random() * 800 + 1), (int) (Math.random() * 600 + 1), 0.3, Math.PI/4, 30);
 				for (int j = 0; j <= obstaculos.length-1; j++){
 					if((kyojines[i].chocasteConObstaculo(obstaculos[j].x, obstaculos[j].y))||kyojines[i].chocasteCon(entorno)){
 					i--;
 					}
 				}
 			}
-			*/		
+			*/
+			//inicia kyojines y vidas de acuerdo al nivel de dificultad seleccionado		
 			kyojines = new Kyojin [4];	
-			kyojines[0] = new Kyojin(50, 50, ((int) (Math.random() * 0.5 + 1)), Math.PI/4, 30);
-			kyojines[1] = new Kyojin(50, 550,((int) (Math.random() * 0.5 + 1)) , Math.PI/4, 30);
-			kyojines[2] = new Kyojin(550, 50,((int) (Math.random() * 0.5 + 1)) , Math.PI/4, 30);
-			kyojines[3] = new Kyojin(550, 550,((int) (Math.random() * 0.5 + 1)) , Math.PI/4, 30);
-			//mejorar con un for
+			kyojines[0] = new Kyojin(50, 50, 1, Math.PI/4, 30);
+			kyojines[1] = new Kyojin(50, 550,1, Math.PI/4, 30);
+			kyojines[2] = new Kyojin(550, 50,1, Math.PI/4, 30);
+			kyojines[3] = new Kyojin(550, 550,1, Math.PI/4, 30);
 			vidas = new Vidas [5];
 			int ubicacion_vidas = 500;
 			for (int i = 0; i <= vidas.length-1; i++) {
@@ -114,13 +114,13 @@ public class Juego extends InterfaceJuego
 			mikasa.reset();
 		}
 		//nivel medio
-		if ((mikasa.x >= 270 && mikasa.x<= 430) && (mikasa.y >=140 && mikasa.y <=170)){
+		if ((mikasa.seleccionNivel(mikasa.x, mikasa.y)== 2)){
+			//inicia kyojines y vidas de acuerdo al nivel de dificultad seleccionado
 			kyojines = new Kyojin [4];	
-			kyojines[0] = new Kyojin(50, 50, 1, Math.PI/4, 30);
-			kyojines[1] = new Kyojin(50, 550, 1, Math.PI/4, 30);
-			kyojines[2] = new Kyojin(550, 50, 1, Math.PI/4, 30);
-			kyojines[3] = new Kyojin(550, 550, 1, Math.PI/4, 30);		    
-		
+			kyojines[0] = new Kyojin(50, 50, 1.5, Math.PI/4, 30);
+			kyojines[1] = new Kyojin(50, 550, 1.5, Math.PI/4, 30);
+			kyojines[2] = new Kyojin(550, 50, 1.5, Math.PI/4, 30);
+			kyojines[3] = new Kyojin(550, 550, 1.5, Math.PI/4, 30);		    
 			vidas = new Vidas [4];
 			int ubicacion_vidas = 500;
 			for (int i = 0; i <= vidas.length-1; i++) {
@@ -133,16 +133,15 @@ public class Juego extends InterfaceJuego
 			mikasa.reset();
 		}
 		//nivel dificil
-		if ((mikasa.x >= 620 && mikasa.x<= 680) && (mikasa.y >=280 && mikasa.y <=350)){
+		if ( (mikasa.seleccionNivel(mikasa.x, mikasa.y)== 3)){
+			//inicia kyojines y vidas de acuerdo al nivel de dificultad seleccionado
 			kyojines = new Kyojin [5];	
 			kyojines[0] = new Kyojin(50, 50, 2.2, Math.PI/4, 30);
 			kyojines[1] = new Kyojin(50, 550, 2.2, Math.PI/4, 30);
 			kyojines[2] = new Kyojin(550, 50, 2.2, Math.PI/4, 30);
 			kyojines[3] = new Kyojin(550, 550, 2.2, Math.PI/4, 30);
 			kyojines[4] = new Kyojin(660, 490, 2.2, Math.PI/4, 30);
-     		
 			vidas = new Vidas [3];
-			vidas = new Vidas [5];
 			int ubicacion_vidas = 500;
 			for (int i = 0; i <= vidas.length-1; i++) {
 				vidas[i] = new Vidas(ubicacion_vidas, 550);
@@ -223,15 +222,15 @@ public class Juego extends InterfaceJuego
 		if (boss == null){
 		//cada cinco segundos pone una pocima de lentitud en el juego
 		if (tiempo %600 == 0){
-			pocimas[0] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 1);
+			pocimas[0] = new Pocima ((int) (Math.random() * 500 + 50), (int) (Math.random() * 500 + 50), 1);
 		}
 		//cada diez segundos pone una pocima mata kyojin en juego
 		if (tiempo  %1000 == 0){
-			pocimas[1] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 2);
+			pocimas[1] = new Pocima ((int) (Math.random() * 500 + 50), (int) (Math.random() * 500 + 50), 2);
 		}
 		//cada quince segundos pone una suero convertidor (?) en juego
 		if (tiempo %1500 == 0){
-			pocimas[2] = new Pocima ((int) (Math.random() * 500 + 1), (int) (Math.random() * 500 + 1), 3);
+			pocimas[2] = new Pocima ((int) (Math.random() * 500 + 50), (int) (Math.random() * 500 + 50), 3);
 		}
 		//dibuja las pocimas existentes
 		for (int i = 0; i <= pocimas.length-1; i++) {
@@ -285,7 +284,14 @@ public class Juego extends InterfaceJuego
 					}				
 				}
 				}
-			}			
+			}
+		//si quedan vidas, las dibuja. 
+		for (int i = 0; i <= vidas.length-1; i++) {
+			if (vidas[i]!=null) {
+				vidas[i].dibujarse(entorno);
+				}
+			}
+		//dibuja a mikasa			
 		if (mikasa != null){
 			mikasa.dibujarse(entorno);
 		}
@@ -323,16 +329,15 @@ public class Juego extends InterfaceJuego
 		}
 		}
 	}
-	//si choca con otro kyojin, se distancian aumentando la velocidad
-	
+	//si choca con otro kyojin, se distancian	
 	for (int i = 0; i <= kyojines.length-1; i++) {
 		for (int j = 0; j <= kyojines.length-1; j++) {
 		if ((kyojines[i]!=null)&&(kyojines[j]!=null)) {	
-			if ((kyojines[i].chocasteConKyojin(kyojines[j].x, kyojines[j].y) == true)&&(i != j)){	
-				kyojines[i].x +=7;
-				kyojines[i].y +=7;
-				kyojines[j].x-=7;
-				kyojines[j].y-=7;
+			if ((kyojines[i].chocasteConKyojin(kyojines[j].x, kyojines[j].y,obstaculos[j].x, obstaculos[j].y) == true)&&(i != j)&&(kyojines[i].chocasteCon(entorno)==false)){	
+				kyojines[i].x +=10;
+				kyojines[i].y +=10;
+				kyojines[j].x-=10;
+				kyojines[j].y-=10;
 				break;
 		}
 		}
@@ -375,7 +380,7 @@ public class Juego extends InterfaceJuego
 				if ((boss == null)&&(kyojines[0] == null)&&(kyojines[1] == null)&&(kyojines[2] == null)&&(kyojines[3] == null)){
 				//si mueren todos los kyojines, pone en juego al jefe final
 				//al Boss en la esquina superior derecha y a Mikasa en la esquina inferior izquierda
-				boss = new Boss(40, 40, 1, Math.PI/4, 30, 3);
+				boss = new Boss(40, 40, 1.2, Math.PI/4, 30, 15);
 				mikasa.x = 770;
 				mikasa.y = 570;
 			}
@@ -477,13 +482,7 @@ public class Juego extends InterfaceJuego
 				}
 			}
 		}	
-	}
-		//si quedan vidas, las dibuja. si no quedan pone null a mikasa	
-		for (int i = 0; i <= vidas.length-1; i++) {
-			if (vidas[i]!=null) {
-				vidas[i].dibujarse(entorno);
-				}
-			}	
+	}	
 		// si no quedan vidas, pone a mikasa en null
 			if (cont_vidas==0){
 				mikasa = null;

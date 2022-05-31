@@ -125,6 +125,21 @@ public class Mikasa
 		   return false;
 	   }
 	}
+	public int seleccionNivel (double x, double y){
+		if ((this.x >= 120 && this.x<= 180) && (this.y >=280 && this.y <=350)){
+			return 1;
+		}
+		if ((this.x >= 270 && this.x<= 430) && (this.y >=140 && this.y <=170)){
+			return 2;
+		}
+		if ((this.x >= 620 && this.x<= 680) && (this.y >=280 && this.y <=350)){
+			return 3;
+		}
+		else{
+			return 0;
+		}
+
+	}
 	public void reset() 
 	{
 		this.x = 400;

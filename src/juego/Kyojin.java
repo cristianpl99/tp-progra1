@@ -55,8 +55,8 @@ public class Kyojin {
 		   return false;
 	   }
 	}
-	public boolean chocasteConKyojin(double x, double y){
-		if ((this.x >= x - 15) && (this.x <= x + 15) && (this.y >= y - 15) && (this.y <= y + 15) ){
+	public boolean chocasteConKyojin(double x, double y, double x2, double y2){
+		if ((this.x >= x - 25) && (this.x <= x + 25) && (this.y >= y - 25) && (this.y <= y + 25) && (chocasteConObstaculo(x2, y2) ==false)){
 			return true;  
 	   }
 	   else{
